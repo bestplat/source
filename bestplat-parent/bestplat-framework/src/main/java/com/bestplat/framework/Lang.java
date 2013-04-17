@@ -1,5 +1,11 @@
 package com.bestplat.framework;
 
+/**
+ * 全局工具类
+ * 
+ * @author lujijiang
+ * 
+ */
 public class Lang {
 	/**
 	 * 包裹异常
@@ -49,10 +55,9 @@ public class Lang {
 	 */
 	public static RuntimeException newCause(
 			Class<? extends Throwable> causeType, String format, Object... args) {
-		Throwable throwable;
 		try {
-			throwable = causeType.getConstructor(String.class).newInstance(
-					String.format(format, args));
+			Throwable throwable = causeType.getConstructor(String.class)
+					.newInstance(String.format(format, args));
 			return wrapCause(throwable);
 		} catch (Exception e) {
 			throw wrapCause(e);
