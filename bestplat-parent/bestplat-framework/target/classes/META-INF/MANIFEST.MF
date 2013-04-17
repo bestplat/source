@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: bestplat
+Implementation-Title: bestplat-framework
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.bestplat
+Build-Jdk: 1.6.0_43
+Built-By: lujijiang
+Created-By: Maven Integration for Eclipse
+
