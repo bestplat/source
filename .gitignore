@@ -1,4 +1,4 @@
-target/*
-tmp/*
-logs/*
+target/
+tmp/
+logs/
 *.log
