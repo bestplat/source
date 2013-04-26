@@ -1,2 +1,0 @@
-2013-04-17 10:06:21,675 [main] INFO  c.b.framework.testcase.log.LogsTest:10 - 测试日志器一般信息
-2013-04-17 10:06:21,682 [main] ERROR c.b.framework.testcase.log.LogsTest:11 - 测试日志器错误信息

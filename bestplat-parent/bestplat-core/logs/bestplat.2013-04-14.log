@@ -1,9 +1,0 @@
-22:54:15.713 [main] INFO  c.b.framework.testcase.log.LogsTest - 测试日志器
-22:55:27.924 [main] INFO  c.b.framework.testcase.log.LogsTest:10 - 测试日志器
-2013-04-14 22:56:13,632 [main] INFO  c.b.framework.testcase.log.LogsTest:10 - 测试日志器
-2013-04-14 22:57:34,859 [main] INFO  c.b.framework.testcase.log.LogsTest:10 - 测试日志器一般信息
-2013-04-14 22:57:34,864 [main] ERROR c.b.framework.testcase.log.LogsTest:11 - 测试日志器错误信息
-2013-04-14 22:58:54,967 [main] INFO  c.b.framework.testcase.log.LogsTest:10 - 测试日志器一般信息
-2013-04-14 22:58:54,973 [main] ERROR c.b.framework.testcase.log.LogsTest:11 - 测试日志器错误信息
-2013-04-14 22:59:16,339 [main] INFO  c.b.framework.testcase.log.LogsTest:10 - 测试日志器一般信息
-2013-04-14 22:59:16,344 [main] ERROR c.b.framework.testcase.log.LogsTest:11 - 测试日志器错误信息
