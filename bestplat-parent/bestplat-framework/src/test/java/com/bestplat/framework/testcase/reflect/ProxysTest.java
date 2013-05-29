@@ -27,7 +27,7 @@ public class ProxysTest {
 				}
 			}, List.class);
 		}
-		Logs.info("time:" + Watch.end() + "ms");
+		Logs.info("time:" + Watch.count() + "ms");
 		final List orgList = new ArrayList();
 		orgList.add(1111);
 		List list = Proxys.proxy(new InvocationHandler() {
@@ -44,6 +44,6 @@ public class ProxysTest {
 		for (int i = 0; i < 1000000; i++) {
 			list.get(333);
 		}
-		Logs.info("time:" + Watch.end() + "ms");
+		Logs.info("time:" + Watch.count() + "ms");
 	}
 }
