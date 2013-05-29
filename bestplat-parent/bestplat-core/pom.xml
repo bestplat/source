@@ -370,7 +370,7 @@
 		<!-- jetty for functional test and executable war -->
 		<dependency>
 			<groupId>org.eclipse.jetty.aggregate</groupId>
-			<artifactId>jetty-webapp</artifactId>
+			<artifactId>jetty-all</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
