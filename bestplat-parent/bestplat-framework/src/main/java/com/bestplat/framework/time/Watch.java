@@ -10,7 +10,7 @@ public class Watch {
 	/**
 	 * 时间计数器
 	 */
-	private static ThreadLocal<Long> millisTime = new ThreadLocal<Long>();
+	private final static ThreadLocal<Long> millisTime = new ThreadLocal<Long>();
 
 	/**
 	 * 开始计时
@@ -30,21 +30,6 @@ public class Watch {
 			return -1;
 		}
 		return System.currentTimeMillis() - t;
-	}
-
-	/**
-	 * 截止计时
-	 * 
-	 * @return
-	 */
-	public static long end() {
-		Long t = millisTime.get();
-		long d = -1;
-		if (t != null) {
-			d = System.currentTimeMillis() - t;
-		}
-		millisTime.set(null);
-		return d;
 	}
 
 	/**
