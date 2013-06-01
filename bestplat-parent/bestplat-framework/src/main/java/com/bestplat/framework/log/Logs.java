@@ -2,11 +2,10 @@ package com.bestplat.framework.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 import org.slf4j.spi.LocationAwareLogger;
 
 /**
- * 通用日志器，依赖于slf4j的API，支持log4j和logback实现，最大限度优化性能
+ * 通用简单日志器，依赖于slf4j的API，支持log4j和logback实现，最大限度优化性能
  * 
  * @author lujijiang
  * 
@@ -37,319 +36,238 @@ public class Logs {
 		return getLocationAwareLogger(3);
 	}
 
+	/**
+	 * 获取日志器名称
+	 * 
+	 * @return
+	 */
 	public static String getName() {
 		return getLocationAwareLogger(3).getName();
 	}
 
+	/**
+	 * 判断日志器实现是否支持trace级别
+	 * 
+	 * @return
+	 */
 	public static boolean isTraceEnabled() {
 		return getLocationAwareLogger(3).isTraceEnabled();
 	}
 
-	public static void trace(String msg) {
+	/**
+	 * 输出trace级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 */
+	public static void trace(Object msg) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, msg, EMPTY_ARRAY, null);
+				LocationAwareLogger.TRACE_INT, format, EMPTY_ARRAY, null);
 	}
 
-	public static void trace(String format, Object arg) {
+	/**
+	 * 输出trace级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void trace(Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, format, new Object[] { arg },
-				null);
+				LocationAwareLogger.TRACE_INT, String.format(format, args),
+				EMPTY_ARRAY, null);
 	}
 
-	public static void trace(String format, Object arg1, Object arg2) {
+	/**
+	 * 输出trace级别信息
+	 * 
+	 * @param t
+	 *            异常信息
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void trace(Throwable t, Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, format,
-				new Object[] { arg1, arg2 }, null);
+				LocationAwareLogger.TRACE_INT, String.format(format, args),
+				EMPTY_ARRAY, t);
 	}
 
-	public static void trace(String format, Object... arguments) {
+	/**
+	 * 输出debug级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 */
+	public static void debug(Object msg) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, format, arguments, null);
+				LocationAwareLogger.DEBUG_INT, format, EMPTY_ARRAY, null);
 	}
 
-	public static void trace(String msg, Throwable e) {
+	/**
+	 * 输出debug级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void debug(Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, msg, EMPTY_ARRAY, e);
+				LocationAwareLogger.DEBUG_INT, String.format(format, args),
+				EMPTY_ARRAY, null);
 	}
 
-	public static boolean isTraceEnabled(Marker marker) {
-		return getLocationAwareLogger(3).isTraceEnabled(marker);
+	/**
+	 * 输出debug级别信息
+	 * 
+	 * @param t
+	 *            异常信息
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void debug(Throwable t, Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
+		getLocationAwareLogger(3).log(null, FQCN,
+				LocationAwareLogger.DEBUG_INT, String.format(format, args),
+				EMPTY_ARRAY, t);
 	}
 
-	public static void trace(Marker marker, String msg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.TRACE_INT, msg, EMPTY_ARRAY, null);
-	}
-
-	public static void trace(Marker marker, String format, Object arg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.TRACE_INT, format, new Object[] { arg },
-				null);
-	}
-
-	public static void trace(Marker marker, String format, Object arg1,
-			Object arg2) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.TRACE_INT, format,
-				new Object[] { arg1, arg2 }, null);
-	}
-
-	public static void trace(Marker marker, String format, Object... argArray) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.TRACE_INT, format, argArray, null);
-	}
-
-	public static void trace(Marker marker, String msg, Throwable e) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.TRACE_INT, msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isInfoEnabled() {
-		return getLocationAwareLogger(3).isInfoEnabled();
-	}
-
-	public static void info(String msg) {
+	/**
+	 * 输出info级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 */
+	public static void info(Object msg) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				msg, EMPTY_ARRAY, null);
+				format, EMPTY_ARRAY, null);
 	}
 
-	public static void info(String format, Object arg) {
+	/**
+	 * 输出info级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void info(Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				format, new Object[] { arg }, null);
+				String.format(format, args), EMPTY_ARRAY, null);
 	}
 
-	public static void info(String format, Object arg1, Object arg2) {
+	/**
+	 * 输出info级别信息
+	 * 
+	 * @param t
+	 *            异常信息
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void info(Throwable t, Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				format, new Object[] { arg1, arg2 }, null);
+				String.format(format, args), EMPTY_ARRAY, t);
 	}
 
-	public static void info(String format, Object... arguments) {
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				format, arguments, null);
-	}
-
-	public static void info(String msg, Throwable e) {
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isInfoEnabled(Marker marker) {
-		return getLocationAwareLogger(3).isInfoEnabled(marker);
-	}
-
-	public static void info(Marker marker, String msg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.INFO_INT, msg, EMPTY_ARRAY, null);
-	}
-
-	public static void info(Marker marker, String format, Object arg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.INFO_INT, format, new Object[] { arg },
-				null);
-	}
-
-	public static void info(Marker marker, String format, Object arg1,
-			Object arg2) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.INFO_INT, format,
-				new Object[] { arg1, arg2 }, null);
-	}
-
-	public static void info(Marker marker, String format, Object... argArray) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.INFO_INT, format, argArray, null);
-	}
-
-	public static void info(Marker marker, String msg, Throwable e) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.INFO_INT, msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isDebugEnabled() {
-		return getLocationAwareLogger(3).isDebugEnabled();
-	}
-
-	public static void debug(String msg) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, msg, EMPTY_ARRAY, null);
-	}
-
-	public static void debug(String format, Object arg) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, format, new Object[] { arg },
-				null);
-	}
-
-	public static void debug(String format, Object arg1, Object arg2) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, format,
-				new Object[] { arg1, arg2 }, null);
-	}
-
-	public static void debug(String format, Object... arguments) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, format, arguments, null);
-	}
-
-	public static void debug(String msg, Throwable e) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isDebugEnabled(Marker marker) {
-		return getLocationAwareLogger(3).isDebugEnabled(marker);
-	}
-
-	public static void debug(Marker marker, String msg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.DEBUG_INT, msg, EMPTY_ARRAY, null);
-	}
-
-	public static void debug(Marker marker, String format, Object arg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.DEBUG_INT, format, new Object[] { arg },
-				null);
-	}
-
-	public static void debug(Marker marker, String format, Object arg1,
-			Object arg2) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.DEBUG_INT, format,
-				new Object[] { arg1, arg2 }, null);
-	}
-
-	public static void debug(Marker marker, String format, Object... argArray) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.DEBUG_INT, format, argArray, null);
-	}
-
-	public static void debug(Marker marker, String msg, Throwable e) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.DEBUG_INT, msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isWarnEnabled() {
-		return getLocationAwareLogger(3).isWarnEnabled();
-	}
-
-	public static void warn(String msg) {
+	/**
+	 * 输出warn级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 */
+	public static void warn(Object msg) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				msg, EMPTY_ARRAY, null);
+				format, EMPTY_ARRAY, null);
 	}
 
-	public static void warn(String format, Object arg) {
+	/**
+	 * 输出warn级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void warn(Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				format, new Object[] { arg }, null);
+				String.format(format, args), EMPTY_ARRAY, null);
 	}
 
-	public static void warn(String format, Object arg1, Object arg2) {
+	/**
+	 * 输出warn级别信息
+	 * 
+	 * @param t
+	 *            异常信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void warn(Throwable t, Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				format, new Object[] { arg1, arg2 }, null);
+				String.format(format, args), EMPTY_ARRAY, t);
 	}
 
-	public static void warn(String format, Object... arguments) {
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				format, arguments, null);
-	}
-
-	public static void warn(String msg, Throwable e) {
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isWarnEnabled(Marker marker) {
-		return getLocationAwareLogger(3).isWarnEnabled(marker);
-	}
-
-	public static void warn(Marker marker, String msg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.WARN_INT, msg, EMPTY_ARRAY, null);
-	}
-
-	public static void warn(Marker marker, String format, Object arg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.WARN_INT, format, new Object[] { arg },
-				null);
-	}
-
-	public static void warn(Marker marker, String format, Object arg1,
-			Object arg2) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.WARN_INT, format,
-				new Object[] { arg1, arg2 }, null);
-	}
-
-	public static void warn(Marker marker, String format, Object... argArray) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.WARN_INT, format, argArray, null);
-	}
-
-	public static void warn(Marker marker, String msg, Throwable e) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.WARN_INT, msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isErrorEnabled() {
-		return getLocationAwareLogger(3).isErrorEnabled();
-	}
-
-	public static void error(String msg) {
+	/**
+	 * 输出error级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 */
+	public static void error(Object msg) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, msg, EMPTY_ARRAY, null);
+				LocationAwareLogger.ERROR_INT, format, EMPTY_ARRAY, null);
 	}
 
-	public static void error(String format, Object arg) {
+	/**
+	 * 输出error级别信息
+	 * 
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void error(Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, format, new Object[] { arg },
-				null);
+				LocationAwareLogger.ERROR_INT, String.format(format, args),
+				EMPTY_ARRAY, null);
 	}
 
-	public static void error(String format, Object arg1, Object arg2) {
+	/**
+	 * 输出error级别信息
+	 * 
+	 * @param t
+	 *            异常信息
+	 * @param msg
+	 *            消息本体，可以是任意对象
+	 * @param args
+	 *            格式化参数，使用String.format来进行格式化
+	 */
+	public static void error(Throwable t, Object msg, Object... args) {
+		String format = msg == null ? "null" : msg.toString();
 		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, format,
-				new Object[] { arg1, arg2 }, null);
+				LocationAwareLogger.ERROR_INT, String.format(format, args),
+				EMPTY_ARRAY, t);
 	}
-
-	public static void error(String format, Object... arguments) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, format, arguments, null);
-	}
-
-	public static void error(String msg, Throwable e) {
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, msg, EMPTY_ARRAY, e);
-	}
-
-	public static boolean isErrorEnabled(Marker marker) {
-		return getLocationAwareLogger(3).isErrorEnabled(marker);
-	}
-
-	public static void error(Marker marker, String msg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.ERROR_INT, msg, EMPTY_ARRAY, null);
-	}
-
-	public static void error(Marker marker, String format, Object arg) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.ERROR_INT, format, new Object[] { arg },
-				null);
-	}
-
-	public static void error(Marker marker, String format, Object arg1,
-			Object arg2) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.ERROR_INT, format,
-				new Object[] { arg1, arg2 }, null);
-	}
-
-	public static void error(Marker marker, String format, Object... argArray) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.ERROR_INT, format, argArray, null);
-	}
-
-	public static void error(Marker marker, String msg, Throwable e) {
-		getLocationAwareLogger(3).log(marker, FQCN,
-				LocationAwareLogger.ERROR_INT, msg, EMPTY_ARRAY, e);
-	}
-
 }

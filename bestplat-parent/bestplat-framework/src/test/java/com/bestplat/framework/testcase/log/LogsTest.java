@@ -7,7 +7,7 @@ import com.bestplat.framework.log.Logs;
 public class LogsTest {
 	@Test
 	public void testLog() {
-		Logs.info("测试日志器一般信息");
-		Logs.error("测试日志器错误信息");
+		Logs.debug(new Throwable("测试异常信息"), "测试日志器一般信息:%d", 32323232);
+		// Logs.error("测试日志器错误信息");
 	}
 }

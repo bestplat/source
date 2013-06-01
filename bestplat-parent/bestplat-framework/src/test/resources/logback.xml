@@ -19,10 +19,11 @@
 	</appender>
 	
 	<!-- project default level -->
-	<logger name="com.bestplat" level="DEBUG" />
+	<logger name="com.bestplat" level="DEBUG" >
+		<appender-ref ref="console" />
+	</logger>
 	
 	<root level="ERROR">
-		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>
 </configuration>
