@@ -46,7 +46,7 @@ public class Logs {
 	}
 
 	/**
-	 * 判断日志器实现是否支持trace级别
+	 * 判断当前日志器是否支持trace级别输出
 	 * 
 	 * @return
 	 */
@@ -61,9 +61,12 @@ public class Logs {
 	 *            消息本体，可以是任意对象
 	 */
 	public static void trace(Object msg) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, format, EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isTraceEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.TRACE_INT, format,
+					EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -75,10 +78,12 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void trace(Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, String.format(format, args),
-				EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isTraceEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.TRACE_INT,
+					String.format(format, args), EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -92,10 +97,21 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void trace(Throwable t, Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.TRACE_INT, String.format(format, args),
-				EMPTY_ARRAY, t);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isTraceEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.TRACE_INT,
+					String.format(format, args), EMPTY_ARRAY, t);
+		}
+	}
+
+	/**
+	 * 判断当前日志器是否支持debug级别输出
+	 * 
+	 * @return
+	 */
+	public static boolean isDebugEnabled() {
+		return getLocationAwareLogger(3).isDebugEnabled();
 	}
 
 	/**
@@ -105,9 +121,12 @@ public class Logs {
 	 *            消息本体，可以是任意对象
 	 */
 	public static void debug(Object msg) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, format, EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isDebugEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.DEBUG_INT, format,
+					EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -119,10 +138,12 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void debug(Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, String.format(format, args),
-				EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isDebugEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.DEBUG_INT,
+					String.format(format, args), EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -136,10 +157,21 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void debug(Throwable t, Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.DEBUG_INT, String.format(format, args),
-				EMPTY_ARRAY, t);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isDebugEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.DEBUG_INT,
+					String.format(format, args), EMPTY_ARRAY, t);
+		}
+	}
+
+	/**
+	 * 判断当前日志器是否支持info级别输出
+	 * 
+	 * @return
+	 */
+	public static boolean isInfoEnabled() {
+		return getLocationAwareLogger(3).isInfoEnabled();
 	}
 
 	/**
@@ -149,9 +181,12 @@ public class Logs {
 	 *            消息本体，可以是任意对象
 	 */
 	public static void info(Object msg) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				format, EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isInfoEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.INFO_INT, format,
+					EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -163,9 +198,12 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void info(Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				String.format(format, args), EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isInfoEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.INFO_INT,
+					String.format(format, args), EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -179,9 +217,21 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void info(Throwable t, Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.INFO_INT,
-				String.format(format, args), EMPTY_ARRAY, t);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isInfoEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.INFO_INT,
+					String.format(format, args), EMPTY_ARRAY, t);
+		}
+	}
+
+	/**
+	 * 判断当前日志器是否支持warn级别输出
+	 * 
+	 * @return
+	 */
+	public static boolean isWarnEnabled() {
+		return getLocationAwareLogger(3).isWarnEnabled();
 	}
 
 	/**
@@ -191,9 +241,12 @@ public class Logs {
 	 *            消息本体，可以是任意对象
 	 */
 	public static void warn(Object msg) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				format, EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isWarnEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.WARN_INT, format,
+					EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -205,9 +258,12 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void warn(Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				String.format(format, args), EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isWarnEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.WARN_INT,
+					String.format(format, args), EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -215,16 +271,27 @@ public class Logs {
 	 * 
 	 * @param t
 	 *            异常信息
-	 * 
 	 * @param msg
 	 *            消息本体，可以是任意对象
 	 * @param args
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void warn(Throwable t, Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN, LocationAwareLogger.WARN_INT,
-				String.format(format, args), EMPTY_ARRAY, t);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isWarnEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.WARN_INT,
+					String.format(format, args), EMPTY_ARRAY, t);
+		}
+	}
+
+	/**
+	 * 判断当前日志器是否支持error级别输出
+	 * 
+	 * @return
+	 */
+	public static boolean isErrorEnabled() {
+		return getLocationAwareLogger(3).isErrorEnabled();
 	}
 
 	/**
@@ -234,9 +301,12 @@ public class Logs {
 	 *            消息本体，可以是任意对象
 	 */
 	public static void error(Object msg) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, format, EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isErrorEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.ERROR_INT, format,
+					EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -248,10 +318,12 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void error(Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, String.format(format, args),
-				EMPTY_ARRAY, null);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isErrorEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.ERROR_INT,
+					String.format(format, args), EMPTY_ARRAY, null);
+		}
 	}
 
 	/**
@@ -265,9 +337,12 @@ public class Logs {
 	 *            格式化参数，使用String.format来进行格式化
 	 */
 	public static void error(Throwable t, Object msg, Object... args) {
-		String format = msg == null ? "null" : msg.toString();
-		getLocationAwareLogger(3).log(null, FQCN,
-				LocationAwareLogger.ERROR_INT, String.format(format, args),
-				EMPTY_ARRAY, t);
+		LocationAwareLogger logger = getLocationAwareLogger(3);
+		if (logger.isErrorEnabled()) {
+			String format = msg == null ? "null" : msg.toString();
+			logger.log(null, FQCN, LocationAwareLogger.ERROR_INT,
+					String.format(format, args), EMPTY_ARRAY, t);
+		}
 	}
+
 }

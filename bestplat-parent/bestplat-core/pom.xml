@@ -6,7 +6,8 @@
 		<artifactId>bestplat-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>bestplat-core</artifactId>
+	<groupId>com.vssq</groupId>
+	<artifactId>bestplat-vssq</artifactId>
 	<packaging>war</packaging>
 	
 	<!-- 项目属性 -->

@@ -19,7 +19,11 @@
 	</appender>
 	
 	<!-- project default level -->
-	<logger name="com.bestplat" level="DEBUG" >
+	<logger name="com.bestplat.framework.log" level="DEBUG" >
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="com.bestplat.framework.testcase" level="INFO">
 		<appender-ref ref="console" />
 	</logger>
 	

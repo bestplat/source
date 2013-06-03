@@ -9,25 +9,6 @@
 </head>
 <body>
 	<h1>Hello world!</h1>
-	<button id="test">测试</button>
-	<script>
-		function escapeScript(s){
-			s = s.replace(/</g,'&lt;');
-			s = s.replace(/>/g,'&gt;');
-			s = s.replace(/%3C/g,'&lt;');
-			s = s.replace(/%3E/g,'&gt;');
-			return s;
-		}
-		document.getElementById('test').onclick = function(){
-			var url = location.href;
-			alert(url);
-			url = url.replace(/</g,'&lt;');
-			url = url.replace(/>/g,'&gt;');
-			url = url.replace(/%3C/g,'&lt;');
-			url = url.replace(/%3E/g,'&gt;');
-			alert(url);
-			location.href = url;
-		}
-	</script>
+	<h2><a href="test/index.jsp">进入测试页面</a></h2>
 </body>
 </html>
