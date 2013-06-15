@@ -36,11 +36,7 @@
 	<!--JPA Open Entity Manager in View Filter -->
 	<filter>
 		<filter-name>OpenEntityManagerInViewFilter</filter-name>
-		<filter-class>ins.framework.dao.jpa.OpenEntityManagerInViewFilter</filter-class>
-		<init-param>
-			<param-name>excludeSuffixs</param-name>
-			<param-value>js,css,jpg,gif,png</param-value>
-		</init-param>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
 	</filter>
 	<!-- 安全认证框架shiro过滤器 -->
 	<filter>  

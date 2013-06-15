@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false" name="jpaCache">
+
+	<diskStore path="java.io.tmpdir/ehcache/vssq/jpa" />
+
+	<!-- DefaultCache setting. -->
+	<defaultCache maxEntriesLocalHeap="10000" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600"
+		overflowToDisk="false" maxEntriesLocalDisk="100000" />
+
+	<!-- Special objects setting. -->
+	<cache name="com.vssq.entity.VssqUser" maxEntriesLocalHeap="1000" eternal="true"
+		overflowToDisk="false" maxEntriesLocalDisk="10000" />
+	<cache name="com.vssq.entity.VssqCompany" maxEntriesLocalHeap="100" eternal="true"
+		overflowToDisk="false" maxEntriesLocalDisk="1000" />
+</ehcache>

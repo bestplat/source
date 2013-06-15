@@ -3,13 +3,12 @@
 <%@ page import="org.apache.shiro.authc.LockedAccountException "%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 	<title>登录页</title>
-	<script src="${ctx}/static/jquery-validation/1.10.0/jquery.validate.min.js" type="text/javascript"></script>
-	<script src="${ctx}/static/jquery-validation/1.10.0/messages_bs_zh.js" type="text/javascript"></script>
-	<link href="${ctx}/static/jquery-validation/1.10.0/validate.css" type="text/css" rel="stylesheet" />
+	<script src="${cp}/static/jquery-validation/1.10.0/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="${cp}/static/jquery-validation/1.10.0/messages_bs_zh.js" type="text/javascript"></script>
+	<link href="${cp}/static/jquery-validation/1.10.0/validate.css" type="text/css" rel="stylesheet" />
 	
 	<script>
 		$(document).ready(function() {
@@ -20,7 +19,7 @@
 
 <body>
 	<h1>登录页</h1>
-	<form id="loginForm" action="${ctx}/login" method="post">
+	<form id="loginForm" action="${cp}/login" method="post">
 		<%
 			String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
 			if(error != null){

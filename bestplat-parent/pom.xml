@@ -232,6 +232,11 @@
 			<!-- PERSISTENCE end -->
 
 			<!-- WEB begin -->
+			<dependency>
+			    <groupId>commons-fileupload</groupId>
+			    <artifactId>commons-fileupload</artifactId>
+			    <version>1.3</version>
+			</dependency>
 			<!-- spring mvc -->
 			<dependency>
 				<groupId>org.springframework</groupId>

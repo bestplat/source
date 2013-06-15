@@ -13,7 +13,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bestplat.framework.util.Encodes;
 import com.google.common.base.Objects;
@@ -75,8 +74,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		}
 	}
 
-	@Autowired
 	AccountService accountService;
+
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
+	}
 
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {

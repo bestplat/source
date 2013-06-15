@@ -28,7 +28,7 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
-				<prop key="net.sf.ehcache.configurationResourceName">cache/ehcache-hibernate-local.xml</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">cache/ehcache-jpa-local.xml</prop>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
 			</props>
 		</property>
@@ -59,14 +59,12 @@
 	<!-- hibernate validator -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
-	
+	<!-- 引入其它spring组件 -->
+	<import resource="components/applicationContext-shiro.xml" />
 
 
 	<!-- production环境 -->
 	<beans profile="production">
-		<!-- 引入其它spring组件 -->
-		<import resource="components/applicationContext-shiro.xml" />
-		
 		<context:property-placeholder ignore-resource-not-found="true"
 			location="classpath*:/config/application.properties" />	
 
