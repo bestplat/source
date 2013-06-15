@@ -24,7 +24,7 @@ public class JpaTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Test
 	@Transactional(readOnly = false)
 	// @Rollback(false)
-	public void test100000() {
+	public void testPersist() {
 		Watch.start();
 		String hql = "delete from VssqUser";
 		em.createQuery(hql).executeUpdate();
