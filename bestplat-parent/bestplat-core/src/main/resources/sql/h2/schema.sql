@@ -42,6 +42,7 @@ create table
         company_ char(32) not null,--所属企业
         email_ varchar(256) not null,--邮件
         password_ varchar(256) not null,--密码（密文）
+        salt_ varchar(64),--密码盐
         name_ varchar(1024) not null,--名称
         other_name_ varchar(1024),--其它名称
         gender_ char(1) not null,--性别

@@ -905,12 +905,6 @@
 					<artifactId>jetty-maven-plugin</artifactId>
 					<version>${jetty.version}</version>
 					<configuration>
-						<systemProperties>
-							<systemProperty>
-								<name>spring.profiles.active</name>
-								<value>development</value>
-							</systemProperty>
-						</systemProperties>
 						<useTestClasspath>true</useTestClasspath>
 						<webAppConfig>
 							<contextPath>/${project.artifactId}</contextPath>

@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -60,6 +61,15 @@ public class VssqUser extends IdEntity implements Serializable {
 	@Size(min = 1, max = 256)
 	@Column(name = "PASSWORD_")
 	private String password;
+	/**
+	 * 原始密码，不保存
+	 */
+	@Transient
+	private String plainPassword;
+	@Basic(optional = false)
+	@Size(min = 1, max = 64)
+	@Column(name = "SALT_")
+	private String salt;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 1024)
@@ -125,6 +135,22 @@ public class VssqUser extends IdEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPlainPassword() {
+		return plainPassword;
+	}
+
+	public void setPlainPassword(String plainPassword) {
+		this.plainPassword = plainPassword;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	public String getName() {
