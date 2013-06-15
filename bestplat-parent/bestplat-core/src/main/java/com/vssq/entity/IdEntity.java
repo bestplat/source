@@ -28,18 +28,18 @@ public abstract class IdEntity {
 
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "DATA_VALID_STATUS_")
-	protected char dataValidStatus;
+	@Column(name = "VALID_STATUS_")
+	protected char validStatus;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "LAST_MODIFIED_TIME_")
+	@Column(name = "MODIFIED_TIME_")
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date lastModifiedTime;
+	protected Date modifiedTime;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "FIRST_CREATED_TIME_")
+	@Column(name = "CREATED_TIME_")
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date firstCreatedTime;
+	protected Date createdTime;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "VERSION_")
@@ -48,7 +48,7 @@ public abstract class IdEntity {
 
 	public IdEntity() {
 		this.id = UUID.randomUUID().toString().replace("-", "");
-		this.dataValidStatus = Status.VALID.value();
+		this.validStatus = Status.VALID.value();
 	}
 
 	final public String getId() {
@@ -59,20 +59,20 @@ public abstract class IdEntity {
 		this.id = id;
 	}
 
-	final public char getDataValidStatus() {
-		return dataValidStatus;
+	final public char getValidStatus() {
+		return validStatus;
 	}
 
-	final public void setDataValidStatus(char dataValidStatus) {
-		this.dataValidStatus = dataValidStatus;
+	final public void setValidStatus(char validStatus) {
+		this.validStatus = validStatus;
 	}
 
-	final public Date getLastModifiedTime() {
-		return lastModifiedTime;
+	public Date getModifiedTime() {
+		return modifiedTime;
 	}
 
-	final public Date getFirstCreatedTime() {
-		return firstCreatedTime;
+	public Date getCreatedTime() {
+		return createdTime;
 	}
 
 	final public int getVersion() {
@@ -106,12 +106,12 @@ public abstract class IdEntity {
 
 	@PrePersist
 	public void prePersist() {
-		this.firstCreatedTime = new Date();
-		this.lastModifiedTime = new Date();
+		this.createdTime = new Date();
+		this.modifiedTime = new Date();
 	}
 
 	@PreUpdate
 	public void preUpdate() {
-		this.lastModifiedTime = new Date();
+		this.modifiedTime = new Date();
 	}
 }

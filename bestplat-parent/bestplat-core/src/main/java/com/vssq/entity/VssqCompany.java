@@ -13,8 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,23 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "VSSQ_COMPANY")
 @XmlRootElement
-@NamedQueries({
-		@NamedQuery(name = "VssqCompany.findAll", query = "SELECT v FROM VssqCompany v"),
-		@NamedQuery(name = "VssqCompany.findById", query = "SELECT v FROM VssqCompany v WHERE v.id = :id"),
-		@NamedQuery(name = "VssqCompany.findByName", query = "SELECT v FROM VssqCompany v WHERE v.name = :name"),
-		@NamedQuery(name = "VssqCompany.findByOtherName", query = "SELECT v FROM VssqCompany v WHERE v.otherName = :otherName"),
-		@NamedQuery(name = "VssqCompany.findByRegisteredAddress", query = "SELECT v FROM VssqCompany v WHERE v.registeredAddress = :registeredAddress"),
-		@NamedQuery(name = "VssqCompany.findByEstablishedDate", query = "SELECT v FROM VssqCompany v WHERE v.establishedDate = :establishedDate"),
-		@NamedQuery(name = "VssqCompany.findByRegisteredCapital", query = "SELECT v FROM VssqCompany v WHERE v.registeredCapital = :registeredCapital"),
-		@NamedQuery(name = "VssqCompany.findByLegalPerson", query = "SELECT v FROM VssqCompany v WHERE v.legalPerson = :legalPerson"),
-		@NamedQuery(name = "VssqCompany.findByAddress", query = "SELECT v FROM VssqCompany v WHERE v.address = :address"),
-		@NamedQuery(name = "VssqCompany.findByLinkman", query = "SELECT v FROM VssqCompany v WHERE v.linkman = :linkman"),
-		@NamedQuery(name = "VssqCompany.findByLinkmanTel", query = "SELECT v FROM VssqCompany v WHERE v.linkmanTel = :linkmanTel"),
-		@NamedQuery(name = "VssqCompany.findByLinkmanEmail", query = "SELECT v FROM VssqCompany v WHERE v.linkmanEmail = :linkmanEmail"),
-		@NamedQuery(name = "VssqCompany.findByLinkmanAddress", query = "SELECT v FROM VssqCompany v WHERE v.linkmanAddress = :linkmanAddress"),
-		@NamedQuery(name = "VssqCompany.findByDataValidStatus", query = "SELECT v FROM VssqCompany v WHERE v.dataValidStatus = :dataValidStatus"),
-		@NamedQuery(name = "VssqCompany.findByLastModifiedTime", query = "SELECT v FROM VssqCompany v WHERE v.lastModifiedTime = :lastModifiedTime"),
-		@NamedQuery(name = "VssqCompany.findByFirstCreatedTime", query = "SELECT v FROM VssqCompany v WHERE v.firstCreatedTime = :firstCreatedTime") })
 public class VssqCompany extends IdEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Basic(optional = false)
@@ -118,9 +99,9 @@ public class VssqCompany extends IdEntity implements Serializable {
 		this.linkman = linkman;
 		this.linkmanTel = linkmanTel;
 		this.linkmanEmail = linkmanEmail;
-		this.dataValidStatus = dataValidStatus;
-		this.lastModifiedTime = lastModifiedTime;
-		this.firstCreatedTime = firstCreatedTime;
+		this.validStatus = dataValidStatus;
+		this.modifiedTime = lastModifiedTime;
+		this.createdTime = firstCreatedTime;
 	}
 
 	public String getName() {

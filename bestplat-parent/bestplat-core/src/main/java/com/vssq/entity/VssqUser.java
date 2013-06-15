@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,21 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "VSSQ_USER")
 @XmlRootElement
-@NamedQueries({
-		@NamedQuery(name = "VssqUser.findAll", query = "SELECT v FROM VssqUser v"),
-		@NamedQuery(name = "VssqUser.findById", query = "SELECT v FROM VssqUser v WHERE v.id = :id"),
-		@NamedQuery(name = "VssqUser.findByEmail", query = "SELECT v FROM VssqUser v WHERE v.email = :email"),
-		@NamedQuery(name = "VssqUser.findByPassword", query = "SELECT v FROM VssqUser v WHERE v.password = :password"),
-		@NamedQuery(name = "VssqUser.findByName", query = "SELECT v FROM VssqUser v WHERE v.name = :name"),
-		@NamedQuery(name = "VssqUser.findByOtherName", query = "SELECT v FROM VssqUser v WHERE v.otherName = :otherName"),
-		@NamedQuery(name = "VssqUser.findByGender", query = "SELECT v FROM VssqUser v WHERE v.gender = :gender"),
-		@NamedQuery(name = "VssqUser.findByTel", query = "SELECT v FROM VssqUser v WHERE v.tel = :tel"),
-		@NamedQuery(name = "VssqUser.findByIm", query = "SELECT v FROM VssqUser v WHERE v.im = :im"),
-		@NamedQuery(name = "VssqUser.findByAddress", query = "SELECT v FROM VssqUser v WHERE v.address = :address"),
-		@NamedQuery(name = "VssqUser.findByBirthday", query = "SELECT v FROM VssqUser v WHERE v.birthday = :birthday"),
-		@NamedQuery(name = "VssqUser.findByDataValidStatus", query = "SELECT v FROM VssqUser v WHERE v.dataValidStatus = :dataValidStatus"),
-		@NamedQuery(name = "VssqUser.findByLastModifiedTime", query = "SELECT v FROM VssqUser v WHERE v.lastModifiedTime = :lastModifiedTime"),
-		@NamedQuery(name = "VssqUser.findByFirstCreatedTime", query = "SELECT v FROM VssqUser v WHERE v.firstCreatedTime = :firstCreatedTime") })
 public class VssqUser extends IdEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "电子邮件无效")
@@ -116,9 +99,9 @@ public class VssqUser extends IdEntity implements Serializable {
 		this.password = password;
 		this.name = name;
 		this.gender = gender;
-		this.dataValidStatus = dataValidStatus;
-		this.lastModifiedTime = lastModifiedTime;
-		this.firstCreatedTime = firstCreatedTime;
+		this.validStatus = dataValidStatus;
+		this.modifiedTime = lastModifiedTime;
+		this.createdTime = firstCreatedTime;
 	}
 
 	public String getEmail() {

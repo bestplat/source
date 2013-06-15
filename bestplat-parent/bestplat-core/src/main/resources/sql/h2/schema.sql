@@ -16,9 +16,9 @@ create table
         linkman_email_ varchar(256) not null,--联系人邮件
         linkman_address_ varchar(1024),--联系人地址
         remark_ clob,--备注
-        data_valid_status_ char(1) default '1' not null,--数据有效状态
-        last_modified_time_ timestamp not null,--最后更新时间
-        first_created_time_ timestamp not null,--首次创建时间
+        valid_status_ char(1) default '1' not null,--数据有效状态
+        modified_time_ timestamp not null,--最后更新时间
+        created_time_ timestamp not null,--首次创建时间
         version_ integer not null,--版本号
         primary key (id_)--设置主键
     );
@@ -30,7 +30,8 @@ create index  idx_company_registered_capital_ on vssq_company  (registered_capit
 create index  idx_company_legal_person_ on vssq_company  (legal_person_);
 create index  idx_company_address_ on vssq_company  (address_);
 create index  idx_company_linkman_ on vssq_company  (linkman_);
-create index  idx_company_last_modified_time_ on vssq_company  (last_modified_time_);
+create index  idx_company_modified_time_ on vssq_company  (modified_time_);
+create index  idx_company_created_time_ on vssq_company  (created_time_);
 
 
 ---------------------------------用户表（vssq_user）------------------------------------
@@ -51,9 +52,9 @@ create table
         address_ varchar(1024),--地址
         birthday_ date,--生日
         remark_ clob,--备注
-        data_valid_status_ char(1) default '1' not null,--数据有效状态
-        last_modified_time_ timestamp not null,--最后更新时间
-        first_created_time_ timestamp not null,--首次创建时间
+        valid_status_ char(1) default '1' not null,--数据有效状态
+        modified_time_ timestamp not null,--最后更新时间
+        created_time_ timestamp not null,--首次创建时间
         version_ integer not null,--版本号
         constraint fk_user_company foreign key (company_) references vssq_company (id_) on delete restrict,--设置和company的外键关联
         primary key (id_)--设置主键
@@ -65,4 +66,6 @@ create index  idx_user_tel_ on vssq_user  (tel_);
 create index  idx_user_im_ on vssq_user  (im_);
 create index  idx_user_address_ on vssq_user  (address_);
 create index  idx_user_birthday_ on vssq_user  (birthday_);
+create index  idx_user_modified_time_ on vssq_user  (modified_time_);
+create index  idx_user_created_time_ on vssq_user  (created_time_);
 
