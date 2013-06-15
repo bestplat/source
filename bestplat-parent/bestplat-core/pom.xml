@@ -92,8 +92,8 @@
 
 		<!-- dbcp -->
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
 		</dependency>
 
 		<!-- jdbc driver -->
@@ -109,6 +109,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.mobile</groupId>
+		    <artifactId>spring-mobile-device</artifactId>
+		    <version>1.0.1.RELEASE</version>
 		</dependency>
 
 		<dependency>
