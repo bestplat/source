@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import org.apache.commons.lang3.Validate;
 
 import com.bestplat.framework.Lang;
+import com.bestplat.framework.util.Encodes;
 
 /**
  * 支持SHA-1/MD5消息摘要的工具类.
@@ -19,8 +20,11 @@ import com.bestplat.framework.Lang;
  */
 public class Digests {
 
-	private static final String SHA1 = "SHA-1";
-	private static final String MD5 = "MD5";
+	public static final String SHA1 = "SHA-1";
+	public static final String SHA256 = "SHA-256";
+	public static final String SHA384 = "SHA-384";
+	public static final String SHA512 = "SHA-512";
+	public static final String MD5 = "MD5";
 
 	private static SecureRandom random = new SecureRandom();
 
@@ -40,9 +44,19 @@ public class Digests {
 	}
 
 	/**
-	 * 对字符串进行散列, 支持md5与sha1算法.
+	 * 对字节数组进行散列, 支持md5与sha1算法.
+	 * 
+	 * @param input
+	 *            字节数组
+	 * @param algorithm
+	 *            摘要算法，支持md5和sha家族
+	 * @param salt
+	 *            摘要盐
+	 * @param iterations
+	 *            迭代加密次数
+	 * @return 加密后的字节数组
 	 */
-	private static byte[] digest(byte[] input, String algorithm, byte[] salt,
+	public static byte[] digest(byte[] input, String algorithm, byte[] salt,
 			int iterations) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance(algorithm);
@@ -110,6 +124,12 @@ public class Digests {
 		} catch (GeneralSecurityException e) {
 			throw Lang.wrapCause(e);
 		}
+	}
+
+	public static void main(String[] args) {
+		String s = "123456";
+		s = Encodes.encodeHex(digest(s.getBytes(), SHA512, generateSalt(8), 1));
+		System.out.println(s);
 	}
 
 }

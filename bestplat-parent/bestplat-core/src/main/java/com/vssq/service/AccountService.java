@@ -25,8 +25,17 @@ import com.vssq.security.ShiroDbRealm.ShiroUser;
 @Transactional(readOnly = true)
 public class AccountService {
 
-	public static final String HASH_ALGORITHM = "SHA-1";
-	public static final int HASH_INTERATIONS = 1024;
+	/**
+	 * 采用更安全的SHA256算法
+	 */
+	public static final String HASH_ALGORITHM = Digests.SHA256;
+	/**
+	 * 迭代3次
+	 */
+	public static final int HASH_INTERATIONS = 3;
+	/**
+	 * 盐大小为8个字节
+	 */
 	private static final int SALT_SIZE = 8;
 
 	@Autowired
@@ -54,14 +63,15 @@ public class AccountService {
 	}
 
 	/**
-	 * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
+	 * 设定安全的密码，生成随机的salt并经过HASH_INTERATIONS次HASH_ALGORITHM hash计算
 	 */
 	private void entryptPassword(VssqUser user) {
 		byte[] salt = Digests.generateSalt(SALT_SIZE);
 		user.setSalt(Encodes.encodeHex(salt));
 
-		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(),
-				salt, HASH_INTERATIONS);
+		byte[] hashPassword = Digests.digest(
+				user.getPlainPassword().getBytes(), HASH_ALGORITHM, salt,
+				HASH_INTERATIONS);
 		user.setPassword(Encodes.encodeHex(hashPassword));
 	}
 

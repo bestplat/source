@@ -38,8 +38,10 @@
                   <li><a href="#">更多</a></li>
                 </ul>
               </li>
-              <li><a href="#">选购产品</a></li>
-              <li><a href="#">联系我们</a></li>
+              <c:if test="${empty user}">
+	              <li><a href="#">选购产品</a></li>
+	              <li><a href="#">联系我们</a></li>
+              </c:if>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">语言<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -48,14 +50,34 @@
                   <li><a href="#">English</a></li>
                 </ul>
               </li>
-              
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" id="email" type="text" placeholder="电子邮箱">
-              <input class="span2" id="password" type="password" placeholder="密码">
-              <button type="submit" class="btn">登陆</button>
-              <button type="submit" class="btn">注册</button>
-            </form>
+            <c:choose>
+            	<c:when test="${empty user}">
+            		<form class="navbar-form pull-right" method="post" action="${cp}/login">
+		              <input class="span2" id="email" type="text" name="username" placeholder="电子邮箱"/>
+		              <input class="span2" id="password" type="password" name="password" placeholder="密码"/>
+		              <button type="submit" class="btn">登陆</button>
+		              <button type="button" class="btn">注册</button>
+		            </form>
+            	</c:when>
+            	<c:otherwise>
+	            	<div class="nav-collapse collapse pull-right">
+	            		<ul class="nav">
+	            			<li class="dropdown">
+	            				<a  class="dropdown-toggle" data-toggle="dropdown" href="#">${user.name}<b class="caret"></b></a>
+	            				<ul class="dropdown-menu">
+				                  <li><a href="${cp}/logout">退出</a></li>
+				                </ul>
+	            			</li>
+	            		</ul>
+	            	</div>
+	            	<form class="navbar-form" method="post" action="${cp}/login">
+		              <input class="span2" id="key" type="text" name="key" placeholder="请输入你的需要"/>
+		              <button type="submit" class="btn">搜索</button>
+		            </form>
+            	</c:otherwise>
+            </c:choose>
+            
           </div><!--/.nav-collapse -->
         </div>
       </div>

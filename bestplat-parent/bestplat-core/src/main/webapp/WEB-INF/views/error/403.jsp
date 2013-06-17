@@ -5,6 +5,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%response.setStatus(403);%>
+
 <html>
 <head>
 	<title>403 - 用户权限不足</title>
