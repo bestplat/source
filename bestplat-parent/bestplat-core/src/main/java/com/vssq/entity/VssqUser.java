@@ -91,19 +91,6 @@ public class VssqUser extends IdEntity implements Serializable {
 		this.id = id;
 	}
 
-	public VssqUser(String id, String email, String password, String name,
-			char gender, char dataValidStatus, Date lastModifiedTime,
-			Date firstCreatedTime) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.gender = gender;
-		this.validStatus = dataValidStatus;
-		this.modifiedTime = lastModifiedTime;
-		this.createdTime = firstCreatedTime;
-	}
-
 	public String getEmail() {
 		return email;
 	}

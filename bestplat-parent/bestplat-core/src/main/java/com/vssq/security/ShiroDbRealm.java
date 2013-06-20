@@ -99,7 +99,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		VssqUser user = accountService.findVssqUserByEmail(email);
 		if (user != null) {
 			if (Status.VALID.value() != user.getValidStatus()) {
-				throw new DisabledAccountException();
+				throw new DisabledAccountException(String.format(
+						"The user(%s) is not valid user.", user.getEmail()));
 			}
 			byte[] salt = Encodes.decodeHex(user.getSalt());
 			return new SimpleAuthenticationInfo(new ShiroUser(user.getEmail(),

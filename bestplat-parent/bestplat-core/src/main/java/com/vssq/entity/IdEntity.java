@@ -106,12 +106,16 @@ public abstract class IdEntity {
 
 	@PrePersist
 	public void prePersist() {
-		this.createdTime = new Date();
-		this.modifiedTime = new Date();
+		this.createdTime = currentTimestamp();
+		this.modifiedTime = createdTime;
 	}
 
 	@PreUpdate
 	public void preUpdate() {
-		this.modifiedTime = new Date();
+		this.modifiedTime = currentTimestamp();
+	}
+
+	private Date currentTimestamp() {
+		return new Date();
 	}
 }

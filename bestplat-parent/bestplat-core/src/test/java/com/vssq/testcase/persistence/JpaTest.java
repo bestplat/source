@@ -1,11 +1,13 @@
 package com.vssq.testcase.persistence;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -23,7 +25,7 @@ public class JpaTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	@Test
 	@Transactional(readOnly = false)
-	// @Rollback(false)
+	@Rollback(false)
 	public void testPersist() {
 		Watch.start();
 		String hql = "delete from VssqUser";
@@ -44,11 +46,11 @@ public class JpaTest extends AbstractTransactionalJUnit4SpringContextTests {
 		user.setPassword("123456");
 		user.setGender('1');
 		em.persist(user);
-		// try {
-		// TimeUnit.SECONDS.sleep(3);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		user.setAddress("safasfsafddasf");
 		em.merge(user);
 		long c = Watch.count();

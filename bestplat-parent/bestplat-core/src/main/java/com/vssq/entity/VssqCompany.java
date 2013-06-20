@@ -90,20 +90,6 @@ public class VssqCompany extends IdEntity implements Serializable {
 		this.id = id;
 	}
 
-	public VssqCompany(String id, String name, String legalPerson,
-			String linkman, String linkmanTel, String linkmanEmail,
-			char dataValidStatus, Date lastModifiedTime, Date firstCreatedTime) {
-		this.id = id;
-		this.name = name;
-		this.legalPerson = legalPerson;
-		this.linkman = linkman;
-		this.linkmanTel = linkmanTel;
-		this.linkmanEmail = linkmanEmail;
-		this.validStatus = dataValidStatus;
-		this.modifiedTime = lastModifiedTime;
-		this.createdTime = firstCreatedTime;
-	}
-
 	public String getName() {
 		return name;
 	}
