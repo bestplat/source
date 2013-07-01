@@ -308,6 +308,12 @@
 
 		<!-- OTHER TOOLS begin -->
 		<dependency>
+            <groupId>com.github.httl</groupId>
+            <artifactId>httl</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+		
+		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 		</dependency>
