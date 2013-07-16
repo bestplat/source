@@ -26,7 +26,7 @@ public class ConcurrentJpaTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		doConcurrentTest(100);
+		doConcurrentTest(200);
 	}
 
 	private static void doConcurrentTest(int nThreads) {
@@ -34,7 +34,7 @@ public class ConcurrentJpaTest {
 		final AccountService accountService = ac.getBean(AccountService.class);
 		final AtomicLong t = new AtomicLong();
 		final AtomicInteger k = new AtomicInteger();
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 1000000; i++) {
 			es.execute(new Runnable() {
 				public void run() {
 					Watch.start();

@@ -36,7 +36,7 @@
 	
 	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="databasePlatform">
-			<bean factory-method="getDialect" class="com.bestplat.framework.persistence.orm.Hibernates">
+			<bean factory-method="getDialect" class="com.bestplat.framework.persistence.orm.support.Hibernates">
 				<constructor-arg ref="dataSource"/>
 			</bean>
 		</property>

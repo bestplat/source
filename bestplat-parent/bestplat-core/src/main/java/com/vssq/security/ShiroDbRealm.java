@@ -19,7 +19,7 @@ import org.apache.shiro.util.ByteSource;
 
 import com.bestplat.framework.util.Encodes;
 import com.google.common.base.Objects;
-import com.vssq.consts.Status;
+import com.vssq.consts.ValidStatus;
 import com.vssq.entity.VssqUser;
 import com.vssq.service.AccountService;
 
@@ -98,7 +98,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		String email = upToken.getUsername();
 		VssqUser user = accountService.findVssqUserByEmail(email);
 		if (user != null) {
-			if (Status.VALID.value() != user.getValidStatus()) {
+			if (ValidStatus.VALID.value() != user.getValidStatus()) {
 				throw new DisabledAccountException(String.format(
 						"The user(%s) is not valid user.", user.getEmail()));
 			}

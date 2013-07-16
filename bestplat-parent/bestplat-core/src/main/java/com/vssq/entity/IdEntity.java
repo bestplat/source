@@ -15,7 +15,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.vssq.consts.Status;
+import com.vssq.consts.ValidStatus;
 
 @MappedSuperclass
 public abstract class IdEntity {
@@ -48,7 +48,7 @@ public abstract class IdEntity {
 
 	public IdEntity() {
 		this.id = UUID.randomUUID().toString().replace("-", "");
-		this.validStatus = Status.VALID.value();
+		this.validStatus = ValidStatus.VALID.value();
 	}
 
 	final public String getId() {

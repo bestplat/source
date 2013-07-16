@@ -6,7 +6,7 @@ package com.vssq.consts;
  * @author lujijiang
  * 
  */
-public enum Status {
+public enum ValidStatus {
 	/**
 	 * 有效状态
 	 */
@@ -17,7 +17,7 @@ public enum Status {
 	INVALID('0');
 	private char value;
 
-	private Status(char value) {
+	private ValidStatus(char value) {
 		this.value = value;
 	}
 
