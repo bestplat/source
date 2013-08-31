@@ -69,3 +69,30 @@ create index  idx_user_birthday_ on vssq_user  (birthday_);
 create index  idx_user_modified_time_ on vssq_user  (modified_time_);
 create index  idx_user_created_time_ on vssq_user  (created_time_);
 
+
+---------------------------------企业角色表（vssq_company_role_role）------------------------------------
+drop table vssq_company_role if exists;
+create table
+    vssq_company_role
+    (
+        id_ char(32) not null,--主键		
+        superior_ char(32),--上级角色
+        name_ varchar(1024) not null,--名称
+        other_name_ varchar(1024),--其它名称
+        company_ char(32) not null,--所属企业
+        remark_ clob,--备注
+        valid_status_ char(1) default '1' not null,--数据有效状态
+        modified_time_ timestamp not null,--最后更新时间
+        created_time_ timestamp not null,--首次创建时间
+        version_ integer not null,--版本号
+        constraint fk_company_role_company foreign key (company_) references vssq_company (id_) on delete restrict,--设置和company的外键关联
+        primary key (id_)--设置主键
+    );
+create index  idx_company_role_name_ on vssq_company_role  (name_);
+create index  idx_company_role_other_name_ on vssq_company_role  (other_name_);
+create index  idx_company_role_superior_ on vssq_company_role  (superior_);
+create index  idx_company_role_modified_time_ on vssq_company_role  (modified_time_);
+create index  idx_company_role_created_time_ on vssq_company_role  (created_time_);
+
+
+

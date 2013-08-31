@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>首页 - 微思奇创新工作室</title>
+<title>在线CRM 在线OA 在线企业应用 - VSSQ微思奇企业在线应用平台</title>
+<meta name="description" content="在线 CRM,在线 OA,先进 领先,企业 应用,在线 应用,SAAS,软件即服务,PAAS,平台即服务,高效,稳定,免费试用,注册 送礼,安全 SSL,数据 备份,引导式,敏捷,定制,开发,最好,完整" />
+<meta name="keywords"  content="CRM OA 先进 领先 在线 企业 应用 SAAS PAAS VSSQ" />
 <link rel="stylesheet" type="text/css" href="${cp}/static/css/main.css"/>
 <link rel="stylesheet" type="text/css" href="${cp}/static/js/jquery/plugins/bootstrap2/css/bootstrap.css"/>
 <!--[if lte IE 6]>
@@ -119,8 +121,6 @@
       </footer>
 
     </div> <!-- /container -->
-    
-    <script type="text/javascript" src="${cp}/static/js/modernizr.custom.js"></script>
     <script type="text/javascript" src="${cp}/static/js/jquery/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="${cp}/static/js/jquery/plugins/bootstrap2/js/bootstrap.min.js"></script>
 	<!--[if lte IE 6]>
