@@ -66,7 +66,11 @@ public class SpringStartup implements
 				Logs.info("Begin execute startup(method=%s,beanType=%s)",
 						startupMeta.method, startupMeta.type.getCanonicalName());
 				Object bean = ac.getBean(startupMeta.type);
-				startupMeta.method.invoke(bean, new Object[] {});
+				if (startupMeta.method.getParameterTypes().length == 1) {
+					startupMeta.method.invoke(bean, new Object[] { ac });
+				} else {
+					startupMeta.method.invoke(bean, new Object[] {});
+				}
 			} catch (Throwable e) {
 				if (!startupMeta.startup.ignoreError()) {
 					throw new IllegalStateException(String.format(
@@ -86,8 +90,14 @@ public class SpringStartup implements
 	 */
 	private void scanClass(Class<?> type, TreeSet<StartupMeta> startupMetas) {
 		for (Method method : type.getMethods()) {
-			if (method.getParameterTypes().length != 0) {
+			if (method.getParameterTypes().length > 1) {
 				continue;
+			}
+			if (method.getParameterTypes().length == 1) {
+				if (!method.getParameterTypes()[0]
+						.isAssignableFrom(ApplicationContext.class)) {
+					continue;
+				}
 			}
 			Startup startup = method.getAnnotation(Startup.class);
 			if (startup == null) {
