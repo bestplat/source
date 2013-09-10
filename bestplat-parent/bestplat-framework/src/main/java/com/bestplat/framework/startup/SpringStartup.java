@@ -30,7 +30,7 @@ public class SpringStartup implements
 	class StartupMeta implements Comparable<StartupMeta> {
 		Startup startup;
 		Method method;
-		Object bean;
+		Class<?> type;
 
 		public int compareTo(StartupMeta o) {
 			return o.startup.value() - startup.value();
@@ -54,24 +54,25 @@ public class SpringStartup implements
 			if (type.isInterface() || Modifier.isAbstract(type.getModifiers())) {
 				continue;
 			}
-			scanClass(ac, type, startupMetas);
+			scanClass(type, startupMetas);
 		}
-		executeStartups(startupMetas);
+		executeStartups(ac, startupMetas);
 	}
 
-	private void executeStartups(TreeSet<StartupMeta> startupMetas) {
+	private void executeStartups(ApplicationContext ac,
+			TreeSet<StartupMeta> startupMetas) {
 		for (StartupMeta startupMeta : startupMetas) {
 			try {
 				Logs.info("Begin execute startup(method=%s,beanType=%s)",
-						startupMeta.method, startupMeta.bean.getClass()
-								.getCanonicalName());
-				startupMeta.method.invoke(startupMeta.bean, new Object[] {});
+						startupMeta.method, startupMeta.type.getCanonicalName());
+				Object bean = ac.getBean(startupMeta.type);
+				startupMeta.method.invoke(bean, new Object[] {});
 			} catch (Throwable e) {
 				if (!startupMeta.startup.ignoreError()) {
 					throw new IllegalStateException(String.format(
 							"Execute startup(method=%s,beanType=%s) error:",
-							startupMeta.method, startupMeta.bean.getClass()
-									.getCanonicalName()), e);
+							startupMeta.method,
+							startupMeta.type.getCanonicalName()), e);
 				}
 			}
 		}
@@ -83,9 +84,7 @@ public class SpringStartup implements
 	 * @param ac
 	 * @param cls
 	 */
-	private void scanClass(ApplicationContext ac, Class<?> type,
-			TreeSet<StartupMeta> startupMetas) {
-		Object bean = ac.getBean(type);
+	private void scanClass(Class<?> type, TreeSet<StartupMeta> startupMetas) {
 		for (Method method : type.getMethods()) {
 			if (method.getParameterTypes().length != 0) {
 				continue;
@@ -98,7 +97,7 @@ public class SpringStartup implements
 				method.setAccessible(true);
 			}
 			StartupMeta startupMeta = new StartupMeta();
-			startupMeta.bean = bean;
+			startupMeta.type = type;
 			startupMeta.method = method;
 			startupMeta.startup = startup;
 			startupMetas.add(startupMeta);

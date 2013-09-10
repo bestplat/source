@@ -62,7 +62,7 @@
 
 	<!-- 启动器 -->
 	<bean id="springStartup" class="com.bestplat.framework.startup.SpringStartup">
-		<property name="scanPackages" value="com.vssq.core.startup"/>
+		<property name="scanPackages" value="com.vssq.**.startup"/>
 	</bean>
 
 
