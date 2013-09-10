@@ -12,7 +12,7 @@
 	</bean>
 
 	<!-- 項目自定义的Realm -->
-	<bean id="shiroDbRealm" class="com.vssq.security.ShiroDbRealm"  depends-on="userDao,companyDao">
+	<bean id="shiroDbRealm" class="com.vssq.core.security.ShiroDbRealm"  depends-on="userDao,companyDao">
 		<property name="accountService" ref="accountService"/>
 	</bean>
 	

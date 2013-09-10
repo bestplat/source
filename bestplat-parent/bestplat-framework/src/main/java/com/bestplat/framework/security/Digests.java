@@ -9,7 +9,6 @@ import java.security.SecureRandom;
 import org.apache.commons.lang3.Validate;
 
 import com.bestplat.framework.Lang;
-import com.bestplat.framework.util.Encodes;
 
 /**
  * 支持SHA-1/MD5消息摘要的工具类.
@@ -124,12 +123,6 @@ public class Digests {
 		} catch (GeneralSecurityException e) {
 			throw Lang.wrapCause(e);
 		}
-	}
-
-	public static void main(String[] args) {
-		String s = "123456";
-		s = Encodes.encodeHex(digest(s.getBytes(), SHA512, generateSalt(8), 1));
-		System.out.println(s);
 	}
 
 }

@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.bestplat.framework.log.Logs;
-import com.bestplat.framework.reflect.Proxys;
-import com.bestplat.framework.time.Watch;
+import com.bestplat.framework.util.Proxys;
+import com.bestplat.framework.util.Watch;
 
 public class ProxysTest {
 	@Test
