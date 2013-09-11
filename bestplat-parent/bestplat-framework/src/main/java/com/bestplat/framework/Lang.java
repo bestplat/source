@@ -1,5 +1,9 @@
 package com.bestplat.framework;
 
+import java.lang.reflect.Array;
+import java.util.Collection;
+import java.util.Map;
+
 /**
  * 全局工具类
  * 
@@ -62,5 +66,31 @@ public class Lang {
 		} catch (Exception e) {
 			throw wrapCause(e);
 		}
+	}
+
+	/**
+	 * 判断一个对象是否为空，可判断数组、集合、Map和字符串，null对象也被认为是空
+	 * 
+	 * @param o
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public static boolean isEmpty(Object o) {
+		if (o == null) {
+			return true;
+		}
+		if (o instanceof Collection) {
+			return ((Collection) o).isEmpty();
+		}
+		if (o instanceof Map) {
+			return ((Map) o).isEmpty();
+		}
+		if (o instanceof CharSequence) {
+			return o.toString().trim().length() == 0;
+		}
+		if (o.getClass().isArray()) {
+			return Array.getLength(o) == 0;
+		}
+		return false;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
+import com.bestplat.framework.Lang;
 import com.bestplat.framework.log.Logs;
 import com.bestplat.framework.util.PackageScanner;
 
@@ -41,22 +42,32 @@ public class SpringStartup implements
 	 * 需要扫描的包
 	 */
 	private String scanPackages;
+	/**
+	 * 是否已执行，避免重复执行
+	 */
+	private boolean isExecute;
 
 	public void setScanPackages(String scanPackages) {
 		this.scanPackages = scanPackages;
 	}
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		ApplicationContext ac = event.getApplicationContext();
-		Set<Class<?>> types = PackageScanner.scan(scanPackages);
-		TreeSet<StartupMeta> startupMetas = new TreeSet<SpringStartup.StartupMeta>();
-		for (Class<?> type : types) {
-			if (type.isInterface() || Modifier.isAbstract(type.getModifiers())) {
-				continue;
+		if (!isExecute) {
+			isExecute = true;
+			ApplicationContext ac = event.getApplicationContext();
+			if (!Lang.isEmpty(scanPackages)) {
+				Set<Class<?>> types = PackageScanner.scan(scanPackages);
+				TreeSet<StartupMeta> startupMetas = new TreeSet<SpringStartup.StartupMeta>();
+				for (Class<?> type : types) {
+					if (type.isInterface()
+							|| Modifier.isAbstract(type.getModifiers())) {
+						continue;
+					}
+					scanClass(type, startupMetas);
+				}
+				executeStartups(ac, startupMetas);
 			}
-			scanClass(type, startupMetas);
 		}
-		executeStartups(ac, startupMetas);
 	}
 
 	private void executeStartups(ApplicationContext ac,

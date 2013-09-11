@@ -62,9 +62,18 @@
 
 	<!-- 启动器 -->
 	<bean id="springStartup" class="com.bestplat.framework.startup.SpringStartup">
-		<property name="scanPackages" value="com.vssq.**.startup"/>
+		<property name="scanPackages" value="com.**.startup"/>
 	</bean>
-
+	
+	<!-- 数据库初始化启动器 -->
+	<bean id="databaseInitializer" class="com.bestplat.framework.persistence.startup.DatabaseInitializer">
+		<property name="sqlFiles">
+			<list>
+				<value>classpath:/data/h2/import-production-data.sql</value>
+			</list>
+		</property>
+		<property name="ignoreFailure" value="true"/>
+	</bean>
 
 	<!-- 引入其它spring组件 -->
 	<import resource="components/applicationContext-shiro.xml" />
