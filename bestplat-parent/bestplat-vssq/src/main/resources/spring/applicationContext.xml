@@ -69,12 +69,15 @@
 	<!-- 引入其它spring组件 -->
 	<import resource="components/applicationContext-shiro.xml" />
 
-	
+	<!-- 数据源相关 -->
+	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+        <property name="statementExecutableSqlLogEnable" value="true" />
+  	</bean>
 
 	<!-- production环境 -->
 	<beans profile="production">
 		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/config/application.properties" />	
+			location="classpath*:/config/application.properties,classpath*:/config/application.production.properties" />	
 
 		<!-- 数据源配置,使用应用内的druid数据库连接池 -->
 		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
@@ -85,7 +88,11 @@
 			<property name="password" value="${jdbc.password}" />
 			<property name="defaultAutoCommit" value="false" />
 			<property name="testWhileIdle" value="false" />
-			<property name="filters" value="stat,slf4j" />
+			<property name="proxyFilters">
+		        <list>
+		            <ref bean="log-filter"/>
+		        </list>
+		    </property>
 		</bean>
 		
 	</beans>
@@ -105,7 +112,11 @@
 			<property name="password" value="${jdbc.password}" />
 			<property name="defaultAutoCommit" value="false" />
 			<property name="testWhileIdle" value="false" />
-			<property name="filters" value="stat,slf4j" />
+			<property name="proxyFilters">
+		        <list>
+		            <ref bean="log-filter"/>
+		        </list>
+		    </property>
 		</bean>
 		
 	</beans>
@@ -125,7 +136,11 @@
 			<property name="password" value="${jdbc.password}" />
 			<property name="defaultAutoCommit" value="false" />
 			<property name="testWhileIdle" value="false" />
-			<property name="filters" value="stat,slf4j" />
+			<property name="proxyFilters">
+		        <list>
+		            <ref bean="log-filter"/>
+		        </list>
+		    </property>
 		</bean>
 			
 				
@@ -138,23 +153,29 @@
 	<!-- unit test环境 -->
 	<beans profile="test">
 		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/config/application.properties,
-          			  classpath*:/config/application.test.properties" />	
+			location="classpath*:/config/application.test.properties" />	
 		
 		<!-- Simple连接池 -->
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-			<property name="driverClass" value="${jdbc.driver}" />
+		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+			<property name="driverClassName" value="${jdbc.driver}" />
 			<property name="url" value="${jdbc.url}" />
 			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />	
+			<property name="password" value="${jdbc.password}" />
+			<property name="defaultAutoCommit" value="false" />
+			<property name="testWhileIdle" value="false" />
+			<property name="proxyFilters">
+		        <list>
+		            <ref bean="log-filter"/>
+		        </list>
+		    </property>
 		</bean>
 			
 		
 		<!-- 初始化数据结构与默认数据 -->
-		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+		<!-- <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
 			<jdbc:script location="classpath:sql/h2/schema.sql" />
 			<jdbc:script location="classpath:data/h2/import-data.sql" encoding="UTF-8" />
-		</jdbc:initialize-database>
+		</jdbc:initialize-database> -->
 
 	</beans>
 </beans>
