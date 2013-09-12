@@ -28,56 +28,59 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lujijiang
  */
 @Entity
-@Table(name = "VSSQ_COMPANY")
+@Table(name = "vssq_company")
 @XmlRootElement
 public class VssqCompany extends IdEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7835244919760124530L;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 1024)
-	@Column(name = "NAME_")
+	@Column(name = "name_")
 	private String name;
 	@Size(max = 1024)
-	@Column(name = "OTHER_NAME_")
+	@Column(name = "other_name_")
 	private String otherName;
 	@Size(max = 1024)
-	@Column(name = "REGISTERED_ADDRESS_")
+	@Column(name = "registered_address_")
 	private String registeredAddress;
-	@Column(name = "ESTABLISHED_DATE_")
+	@Column(name = "established_date_")
 	@Temporal(TemporalType.DATE)
 	private Date establishedDate;
 	@Size(max = 256)
-	@Column(name = "REGISTERED_CAPITAL_")
+	@Column(name = "registered_capital_")
 	private String registeredCapital;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 1024)
-	@Column(name = "LEGAL_PERSON_")
+	@Column(name = "legal_person_")
 	private String legalPerson;
 	@Size(max = 1024)
-	@Column(name = "ADDRESS_")
+	@Column(name = "address_")
 	private String address;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 64)
-	@Column(name = "LINKMAN_")
+	@Column(name = "linkman_")
 	private String linkman;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 64)
-	@Column(name = "LINKMAN_TEL_")
+	@Column(name = "linkman_tel_")
 	private String linkmanTel;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 256)
-	@Column(name = "LINKMAN_EMAIL_")
+	@Column(name = "linkman_email_")
 	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "电子邮件无效")
 	private String linkmanEmail;
 	@Size(max = 1024)
-	@Column(name = "LINKMAN_ADDRESS_")
+	@Column(name = "linkman_address_")
 	private String linkmanAddress;
 	@Lob
-	@Column(name = "REMARK_")
+	@Column(name = "remark_")
 	private String remark;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")

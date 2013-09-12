@@ -28,21 +28,21 @@ public abstract class IdEntity {
 
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "VALID_STATUS_")
+	@Column(name = "valid_status_")
 	protected char validStatus;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "MODIFIED_TIME_")
+	@Column(name = "modified_time_")
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date modifiedTime;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "CREATED_TIME_")
+	@Column(name = "created_time_")
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date createdTime;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "VERSION_")
+	@Column(name = "version_")
 	@Version
 	protected int version;
 

@@ -88,7 +88,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
 		VssqUser user = accountService.findVssqUserByEmail(shiroUser.email);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		// TODO add rules
 		return info;
 	}
 
