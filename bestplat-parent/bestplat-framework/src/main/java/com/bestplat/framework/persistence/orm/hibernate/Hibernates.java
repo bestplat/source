@@ -1,4 +1,4 @@
-package com.bestplat.framework.persistence.orm.support;
+package com.bestplat.framework.persistence.orm.hibernate;
 
 import java.sql.Connection;
 import java.sql.SQLException;

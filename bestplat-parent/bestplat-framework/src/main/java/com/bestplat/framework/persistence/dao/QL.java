@@ -30,7 +30,7 @@ public class QL {
 	/**
 	 * 问号占位符正则表达式
 	 */
-	private final static Pattern PLACEHOLDER_PATTERN = Pattern.compile("[\\?]");
+	public final static Pattern PLACEHOLDER_PATTERN = Pattern.compile("[\\?]");
 	/**
 	 * 关键字正则表达式
 	 */
@@ -38,6 +38,18 @@ public class QL {
 			.compile(
 					"(select)|(where)|(and)|(or)|(group)|(by)|(order)|(having)|(with)|(join)|(on)|(left)|(right)|(full)|(inner)",
 					Pattern.CASE_INSENSITIVE);
+
+	public static String toJpaPositionalParametersStyle(String queryString,
+			int start) {
+		StringBuffer sb = new StringBuffer();
+		int i = start;
+		Matcher m = PLACEHOLDER_PATTERN.matcher(queryString);
+		while (m.find()) {
+			m.appendReplacement(sb, "?" + i++);
+		}
+		m.appendTail(sb);
+		return sb.toString();
+	}
 
 	enum QLLogicType {
 		AND, OR
