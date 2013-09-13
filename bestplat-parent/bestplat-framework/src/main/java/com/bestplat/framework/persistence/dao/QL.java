@@ -39,18 +39,6 @@ public class QL {
 					"(select)|(where)|(and)|(or)|(group)|(by)|(order)|(having)|(with)|(join)|(on)|(left)|(right)|(full)|(inner)",
 					Pattern.CASE_INSENSITIVE);
 
-	public static String toJpaPositionalParametersStyle(String queryString,
-			int start) {
-		StringBuffer sb = new StringBuffer();
-		int i = start;
-		Matcher m = PLACEHOLDER_PATTERN.matcher(queryString);
-		while (m.find()) {
-			m.appendReplacement(sb, "?" + i++);
-		}
-		m.appendTail(sb);
-		return sb.toString();
-	}
-
 	enum QLLogicType {
 		AND, OR
 	}

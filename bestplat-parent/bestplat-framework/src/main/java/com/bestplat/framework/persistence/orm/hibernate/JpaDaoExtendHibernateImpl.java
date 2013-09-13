@@ -3,6 +3,7 @@ package com.bestplat.framework.persistence.orm.hibernate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 import javax.persistence.EntityManager;
 
@@ -24,6 +25,17 @@ import com.bestplat.framework.persistence.orm.jpa.JpaDaoExtend;
  * 
  */
 public class JpaDaoExtendHibernateImpl implements JpaDaoExtend {
+	public static String toJpaPositionalParametersStyle(String queryString,
+			int start) {
+		StringBuffer sb = new StringBuffer();
+		int i = start;
+		Matcher m = QL.PLACEHOLDER_PATTERN.matcher(queryString);
+		while (m.find()) {
+			m.appendReplacement(sb, "?" + i++);
+		}
+		m.appendTail(sb);
+		return sb.toString();
+	}
 
 	public Long count(EntityManager entityManager, QL ql) {
 		Session session = (Session) entityManager.getDelegate();
@@ -57,7 +69,7 @@ public class JpaDaoExtendHibernateImpl implements JpaDaoExtend {
 	public String hqlToSql(Session session, String hql,
 			Map<Integer, Object> oldParameters,
 			Map<Integer, Object> newParameters) {
-		hql = QL.toJpaPositionalParametersStyle(hql, 0);
+		hql = toJpaPositionalParametersStyle(hql, 0);
 		final QueryTranslatorFactory translatorFactory = new ASTQueryTranslatorFactory();
 		QueryTranslator queryTranslator = translatorFactory
 				.createQueryTranslator(hql, hql, Collections.EMPTY_MAP,
