@@ -90,5 +90,10 @@
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
     	<property name="securityManager" ref="securityManager"/>
 	</bean>
+	
+	<!-- Rpc Server -->
+	<bean name="/test_rpc" class="com.bestplat.framework.rpc.RpcServer">
+		<property name="scanPackages" value="com.vssq.core.rpc.impl"/>
+	</bean>
 	<!-- end -->
 </beans>

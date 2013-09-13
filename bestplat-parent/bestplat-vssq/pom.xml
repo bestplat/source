@@ -24,389 +24,120 @@
 			<artifactId>bestplat-framework</artifactId>
 			<version>${bestplat.version}</version>
 		</dependency>
-		<!-- SPRING basic begin -->
-		<!-- email/scheduler/freemarker -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-		</dependency>
-		<!-- SPRING basic end -->
 		
-		<!-- AOP -->
+		<!-- h2 -->
 		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.javassist</groupId>
-		    <artifactId>javassist</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-		</dependency>
-		<!-- SPRING end -->
-
-		<!-- PERSISTENCE begin -->
-		<!-- hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-		</dependency>
-		
-		<!-- mybatis -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-		</dependency>
-
-		<!-- spring data access -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-
-		<!-- dbcp -->
-		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>druid</artifactId>
-		</dependency>
-
-		<!-- jdbc driver -->
-		<dependency>
-			<groupId>${jdbc.driver.groupId}</groupId>
-			<artifactId>${jdbc.driver.artifactId}</artifactId>
-			<version>${jdbc.driver.version}</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- PERSISTENCE end -->
-
-		<!-- WEB begin -->
-		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		</dependency>
 		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.mobile</groupId>
-		    <artifactId>spring-mobile-device</artifactId>
-		    <version>1.0.1.RELEASE</version>
-		</dependency>
-
-		<dependency>
-			<groupId>opensymphony</groupId>
-			<artifactId>sitemesh</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
+		<!-- j2ee web spec -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 		</dependency>
-		<!-- WEB end -->
-		
-		<!-- SECURITY begin -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-ehcache</artifactId>
-		</dependency>
-		<!-- SECURITY end -->
-		
-		<!-- SOAP begin -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-		</dependency>
-		<!-- SOAP end -->
-		
-		<!-- JAX-RS begin -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-		</dependency>
-		<dependency>
-	    	<groupId>com.fasterxml.jackson.jaxrs</groupId>
-	        <artifactId>jackson-jaxrs-json-provider</artifactId>
-	    </dependency>	
-		<!-- JAX-RS end -->
 
-		<!-- JMS begin -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-		</dependency>
-		<!-- JMS end -->
-
-		<!-- TIMER -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-		</dependency>
-  		
-  		<!-- Redis -->	
-		<dependency>
-		    <groupId>redis.clients</groupId>
-		    <artifactId>jedis</artifactId>
-		    <version>2.1.0</version>
-		</dependency>
-
-		<!-- CACHE begin -->
-		<dependency>
-			<groupId>spy</groupId>
-			<artifactId>spymemcached</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.thimbleware.jmemcached</groupId>
-			<artifactId>jmemcached-core</artifactId>
-			<!-- 为演示而改为runtime -->
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache-core</artifactId>
-		</dependency>
-		<!-- CACHE end -->
-		
-		<!-- jolokia Restful JMX -->
-		<dependency>
-			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
-		</dependency>
-				
-		<!-- JSR303  BeanValidator -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		
-		<!-- JSON -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.module</groupId>
-			<artifactId>jackson-module-jaxb-annotations</artifactId>
-		</dependency>
-		<dependency>
-	    	<groupId>com.fasterxml.jackson.datatype</groupId>
-	        <artifactId>jackson-datatype-joda</artifactId>
-       	</dependency>
-		
-		<!-- XML begin -->
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-		</dependency>
-		<!-- XML end -->	
-		
-		<!-- LOGGING begin -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-	
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>log4j-over-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-	        <artifactId>jul-to-slf4j</artifactId>
-	    </dependency>
-
-		<dependency>
-			<groupId>org.lazyluke</groupId>
-			<artifactId>log4jdbc-remix</artifactId>
-		</dependency>
-		<!-- LOGGING end -->
-
-		<!-- GENERAL UTILS begin -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-		<!-- GENERAL UTILS end -->
-
-		<!-- OTHER TOOLS begin -->
-		<dependency>
-            <groupId>com.github.httl</groupId>
-            <artifactId>httl</artifactId>
-            <version>1.0.10</version>
-        </dependency>
-		
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer</artifactId>
-		</dependency>
-
-		<!-- email -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
-		</dependency>
-		<!-- lang support -->
-		<dependency>
-		    <groupId>org.mozilla</groupId>
-		    <artifactId>rhino</artifactId>
-		</dependency>
-		
-		<!-- OTHER TOOLS end -->
-
-		<!-- TEST begin -->		
+		<!-- TEST begin -->
+		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<!-- for xxxDemo class -->
-			<scope>compile</scope>
+			
 		</dependency>
-
+		<!-- mockito -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
+			
 		</dependency>
-
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
+			
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
+			
+			<exclusions>
+				<exclusion>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-all</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
+		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<!-- for xxxDemo class -->
-			<scope>compile</scope>
+			
 		</dependency>
 
 		<!-- selenium 2.0 -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
+			
+			<exclusions>
+				<exclusion>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-android-driver</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-iphone-driver</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
+			
+			<exclusions>
+				<exclusion>
+					<groupId>cglib</groupId>
+					<artifactId>cglib-nodep</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
-		<!-- jetty for functional test and executable war -->
+		<!-- jetty -->
 		<dependency>
 			<groupId>org.eclipse.jetty.aggregate</groupId>
 			<artifactId>jetty-all</artifactId>
-			<scope>provided</scope>
+			
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jsp</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		
-		<!-- h2 -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			
 		</dependency>
 
-		<!-- mail server simulator -->
+		
+
+		<!-- memcached simulator -->
+		<dependency>
+			<groupId>com.thimbleware.jmemcached</groupId>
+			<artifactId>jmemcached-core</artifactId>
+			
+		</dependency>
+
+		<!-- smtp server simulator -->
 		<dependency>
 			<groupId>com.icegreen</groupId>
 			<artifactId>greenmail</artifactId>
+			
 		</dependency>
 		<!-- TEST end -->
 	</dependencies>

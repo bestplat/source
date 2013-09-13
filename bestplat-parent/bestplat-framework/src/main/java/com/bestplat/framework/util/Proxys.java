@@ -45,7 +45,8 @@ public class Proxys {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T proxy(final InvocationHandler invocationHandler,
-			Class<T> mainType, Class<?>[] otherTypes, Object... arguments) {
+			Class<? extends T> mainType, Class<?>[] otherTypes,
+			Object... arguments) {
 		int extendTypeCount = 0;
 		Class<?> extendType = null;
 		List<Class<?>> interfaceTypes = new ArrayList<Class<?>>();
@@ -136,7 +137,7 @@ public class Proxys {
 	 * @return 代理对象
 	 */
 	public static <T> T proxy(final InvocationHandler invocationHandler,
-			Class<T> mainType, Object... arguments) {
+			Class<? extends T> mainType, Object... arguments) {
 		return proxy(invocationHandler, mainType, null, arguments);
 	}
 }

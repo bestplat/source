@@ -1,13 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.bestplat</groupId>
-		<artifactId>bestplat-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	<artifactId>bestplat-framework</artifactId>
-	<!-- 项目属性 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.bestplat</groupId>
+    <artifactId>bestplat-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>bestplat-crm</artifactId>
+  <packaging>war</packaging>
+  <!-- 项目属性 -->
 	<properties>
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
@@ -16,10 +16,16 @@
 
 	<!-- 依赖项定义 -->
 	<dependencies>
+		<dependency>
+			<groupId>com.bestplat</groupId>
+			<artifactId>bestplat-framework</artifactId>
+			<version>${bestplat.version}</version>
+		</dependency>
 		<!-- SPRING basic begin(一般不需要显式定义) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
+			<scope>runtime</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -178,10 +184,13 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
+
+			
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
+
 		</dependency>
 		<!-- WEB end -->
 

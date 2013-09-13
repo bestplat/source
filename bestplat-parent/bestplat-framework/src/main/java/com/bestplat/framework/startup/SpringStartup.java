@@ -11,7 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import com.bestplat.framework.Lang;
 import com.bestplat.framework.log.Logs;
-import com.bestplat.framework.util.PackageScanner;
+import com.bestplat.framework.util.Packages;
 
 /**
  * Spring启动器，在Spring上下文初始化之后调用启动器
@@ -56,7 +56,7 @@ public class SpringStartup implements
 			isExecute = true;
 			ApplicationContext ac = event.getApplicationContext();
 			if (!Lang.isEmpty(scanPackages)) {
-				Set<Class<?>> types = PackageScanner.scan(scanPackages);
+				Set<Class<?>> types = Packages.scanClasses(scanPackages);
 				TreeSet<StartupMeta> startupMetas = new TreeSet<SpringStartup.StartupMeta>();
 				for (Class<?> type : types) {
 					if (type.isInterface()

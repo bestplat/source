@@ -1,6 +1,10 @@
 package com.bestplat.framework;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -93,4 +97,81 @@ public class Lang {
 		}
 		return false;
 	}
+
+	/**
+	 * 从数组中求取哈希值
+	 * 
+	 * @param array
+	 * @return
+	 */
+	private static int arrayHashCode(Object array) {
+		if (array == null) {
+			return 0;
+		}
+		Class<?> arrayClass = array.getClass();
+		if (!arrayClass.isArray()) {
+			return array.hashCode();
+		}
+		Class<?> componentType = arrayClass.getComponentType();
+		if (componentType.isPrimitive()) {
+			if (componentType.equals(long.class)) {
+				return Arrays.hashCode((long[]) array);
+			}
+			if (componentType.equals(int.class)) {
+				return Arrays.hashCode((int[]) array);
+			}
+			if (componentType.equals(short.class)) {
+				return Arrays.hashCode((short[]) array);
+			}
+			if (componentType.equals(char.class)) {
+				return Arrays.hashCode((char[]) array);
+			}
+			if (componentType.equals(byte.class)) {
+				return Arrays.hashCode((byte[]) array);
+			}
+			if (componentType.equals(boolean.class)) {
+				return Arrays.hashCode((boolean[]) array);
+			}
+			if (componentType.equals(float.class)) {
+				return Arrays.hashCode((float[]) array);
+			}
+			if (componentType.equals(double.class)) {
+				return Arrays.hashCode((double[]) array);
+			}
+		}
+		Object[] a = (Object[]) array;
+
+		int result = 1;
+
+		for (int i = 0; i < a.length; i++) {
+			Object element = a[i];
+			result = 31 * result + arrayHashCode(element);
+		}
+		return result;
+	}
+
+	/**
+	 * 计算hash值
+	 * 
+	 * @param a
+	 * @return
+	 */
+	public static int hashCode(Object... a) {
+		return arrayHashCode(a);
+	}
+
+	/**
+	 * 输出异常
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public static String toString(Throwable e) {
+		OutputStream os = new ByteArrayOutputStream();
+		PrintWriter pw = new PrintWriter(os);
+		e.printStackTrace(pw);
+		pw.close();
+		return os.toString();
+	}
+
 }
