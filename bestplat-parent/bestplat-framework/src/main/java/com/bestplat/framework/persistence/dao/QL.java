@@ -24,6 +24,10 @@ import com.bestplat.framework.Lang;
  */
 public class QL {
 	/**
+	 * 空数组
+	 */
+	private static final Object[] EMPTY_ARGS = new Object[] {};
+	/**
 	 * 问号占位符正则表达式
 	 */
 	private final static Pattern PLACEHOLDER_PATTERN = Pattern.compile("[\\?]");
@@ -35,7 +39,7 @@ public class QL {
 					"(select)|(where)|(and)|(or)|(group)|(by)|(order)|(having)|(with)|(join)|(on)|(left)|(right)|(full)|(inner)",
 					Pattern.CASE_INSENSITIVE);
 
-	enum QLType {
+	enum QLLogicType {
 		AND, OR
 	}
 
@@ -53,9 +57,9 @@ public class QL {
 		 */
 		List<Object> args;
 		/**
-		 * 片段类型
+		 * 逻辑类型
 		 */
-		QLType type;
+		QLLogicType logicType;
 	}
 
 	public class QueryInfo {
@@ -120,6 +124,19 @@ public class QL {
 	}
 
 	/**
+	 * 创建一个QL对象
+	 * 
+	 * @return
+	 */
+	public static QL froms(String... tables) {
+		QL ql = create();
+		for (String table : tables) {
+			ql.from(table);
+		}
+		return ql;
+	}
+
+	/**
 	 * select子句的内容
 	 */
 	private List<QLMeta> selectQLMetas = new ArrayList<QLMeta>();
@@ -127,6 +144,18 @@ public class QL {
 	 * from子句的内容
 	 */
 	private List<QLMeta> fromQLMetas = new ArrayList<QLMeta>();
+	/**
+	 * join子句的内容
+	 */
+	private List<QLMeta> joinQLMetas = new ArrayList<QLMeta>();
+	/**
+	 * left join子句的内容
+	 */
+	private List<QLMeta> leftJoinQLMetas = new ArrayList<QLMeta>();
+	/**
+	 * right join子句的内容
+	 */
+	private List<QLMeta> rightJoinQLMetas = new ArrayList<QLMeta>();
 	/**
 	 * Where子句的内容
 	 */
@@ -216,9 +245,19 @@ public class QL {
 		QLMeta qlMeta = new QLMeta();
 		qlMeta.ql = ql;
 		qlMeta.args = Arrays.asList(args);
-		qlMeta.type = QLType.AND;
+		qlMeta.logicType = QLLogicType.AND;
 		whereQLMetas.add(qlMeta);
 		return this;
+	}
+
+	/**
+	 * where里面的AND子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL and(String ql) {
+		return and(ql, EMPTY_ARGS);
 	}
 
 	/**
@@ -230,7 +269,7 @@ public class QL {
 	public QL and(QL subQL) {
 		QLMeta qlMeta = new QLMeta();
 		qlMeta.subQL = subQL;
-		qlMeta.type = QLType.AND;
+		qlMeta.logicType = QLLogicType.AND;
 		whereQLMetas.add(qlMeta);
 		return this;
 	}
@@ -239,7 +278,6 @@ public class QL {
 	 * where里面的OR子句
 	 * 
 	 * @param ql
-	 * @param args
 	 * @return
 	 */
 	public QL or(String ql, Object... args) {
@@ -249,9 +287,19 @@ public class QL {
 		QLMeta qlMeta = new QLMeta();
 		qlMeta.ql = ql;
 		qlMeta.args = Arrays.asList(args);
-		qlMeta.type = QLType.OR;
+		qlMeta.logicType = QLLogicType.OR;
 		whereQLMetas.add(qlMeta);
 		return this;
+	}
+
+	/**
+	 * where里面的OR子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL or(String ql) {
+		return or(ql, EMPTY_ARGS);
 	}
 
 	/**
@@ -263,7 +311,7 @@ public class QL {
 	public QL or(QL subQL) {
 		QLMeta qlMeta = new QLMeta();
 		qlMeta.subQL = subQL;
-		qlMeta.type = QLType.OR;
+		qlMeta.logicType = QLLogicType.OR;
 		whereQLMetas.add(qlMeta);
 		return this;
 	}
@@ -272,7 +320,6 @@ public class QL {
 	 * 查询子句
 	 * 
 	 * @param ql
-	 * @param args
 	 * @return
 	 */
 	public QL select(String ql, Object... args) {
@@ -287,6 +334,181 @@ public class QL {
 	}
 
 	/**
+	 * 查询子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL select(String ql) {
+		return select(ql, EMPTY_ARGS);
+	}
+
+	/**
+	 * from子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL from(String ql, Object... args) {
+		ql = fixQL(ql);
+		args = fixArgs(ql, args);
+		checkQLAndArgs(ql, args);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		qlMeta.args = Arrays.asList(args);
+		fromQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * from子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL from(String ql) {
+		return from(ql, EMPTY_ARGS);
+	}
+
+	/**
+	 * order子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL order(String ql) {
+		ql = fixQL(ql);
+		checkQLAndArgs(ql, EMPTY_ARGS);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		orderQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * group子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL group(String ql) {
+		ql = fixQL(ql);
+		checkQLAndArgs(ql, EMPTY_ARGS);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		groupQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * having子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL having(String ql, Object... args) {
+		ql = fixQL(ql);
+		args = fixArgs(ql, args);
+		checkQLAndArgs(ql, args);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		qlMeta.args = Arrays.asList(args);
+		havingQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * having子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL having(String ql) {
+		return having(ql, EMPTY_ARGS);
+	}
+
+	/**
+	 * join子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL join(String ql, Object... args) {
+		ql = fixQL(ql);
+		args = fixArgs(ql, args);
+		checkQLAndArgs(ql, args);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		qlMeta.args = Arrays.asList(args);
+		joinQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * join子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL join(String ql) {
+		return join(ql, EMPTY_ARGS);
+	}
+
+	/**
+	 * leftJoin子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL leftJoin(String ql, Object... args) {
+		ql = fixQL(ql);
+		args = fixArgs(ql, args);
+		checkQLAndArgs(ql, args);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		qlMeta.args = Arrays.asList(args);
+		leftJoinQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * leftJoin子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL leftJoin(String ql) {
+		return leftJoin(ql, EMPTY_ARGS);
+	}
+
+	/**
+	 * rightJoin子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL rightJoin(String ql, Object... args) {
+		ql = fixQL(ql);
+		args = fixArgs(ql, args);
+		checkQLAndArgs(ql, args);
+		QLMeta qlMeta = new QLMeta();
+		qlMeta.ql = ql;
+		qlMeta.args = Arrays.asList(args);
+		rightJoinQLMetas.add(qlMeta);
+		return this;
+	}
+
+	/**
+	 * rightJoin子句
+	 * 
+	 * @param ql
+	 * @return
+	 */
+	public QL rightJoin(String ql) {
+		return rightJoin(ql, EMPTY_ARGS);
+	}
+
+	/**
 	 * 返回总的查询信息
 	 * 
 	 * @return
@@ -294,129 +516,76 @@ public class QL {
 	public QueryInfo toQueryInfo() {
 		StringBuilder queryString = new StringBuilder();
 		List<Object> args = new ArrayList<Object>();
-		QueryInfo selectQueryInfo = toSelectQueryInfo();
-		if (!Lang.isEmpty(selectQueryInfo.queryString)) {
-			queryString.append("select ");
-			queryString.append(selectQueryInfo.queryString);
-			args.addAll(selectQueryInfo.args);
+		{
+			QueryInfo selectQueryInfo = toSelectQueryInfo();
+			if (!Lang.isEmpty(selectQueryInfo.queryString)) {
+				queryString.append("select ");
+				queryString.append(selectQueryInfo.queryString);
+				args.addAll(selectQueryInfo.args);
+			}
 		}
-		QueryInfo fromQueryInfo = toFromQueryInfo();
-		if (!Lang.isEmpty(fromQueryInfo.queryString)) {
-			queryString.append(" from ");
-			queryString.append(fromQueryInfo.queryString);
-			args.addAll(fromQueryInfo.args);
+		{
+			QueryInfo fromQueryInfo = toFromQueryInfo();
+			if (!Lang.isEmpty(fromQueryInfo.queryString)) {
+				queryString.append(" from ");
+				queryString.append(fromQueryInfo.queryString);
+				args.addAll(fromQueryInfo.args);
+			}
 		}
-		QueryInfo whereQueryInfo = toWhereQueryInfo();
-		if (!Lang.isEmpty(whereQueryInfo.queryString)) {
-			queryString.append(" where ");
-			queryString.append(whereQueryInfo.queryString);
-			args.addAll(whereQueryInfo.args);
+		{
+			QueryInfo joinQueryInfo = toJoinQueryInfo();
+			if (!Lang.isEmpty(joinQueryInfo.queryString)) {
+				queryString.append(" join ");
+				queryString.append(joinQueryInfo.queryString);
+				args.addAll(joinQueryInfo.args);
+			}
 		}
-		QueryInfo orderQueryInfo = toOrderQueryInfo();
-		if (!Lang.isEmpty(orderQueryInfo.queryString)) {
-			queryString.append(" order by ");
-			queryString.append(orderQueryInfo.queryString);
-			args.addAll(orderQueryInfo.args);
+		{
+			QueryInfo leftJoinQueryInfo = toLeftJoinQueryInfo();
+			if (!Lang.isEmpty(leftJoinQueryInfo.queryString)) {
+				queryString.append(" left join ");
+				queryString.append(leftJoinQueryInfo.queryString);
+				args.addAll(leftJoinQueryInfo.args);
+			}
 		}
-		QueryInfo groupQueryInfo = toGroupQueryInfo();
-		if (!Lang.isEmpty(groupQueryInfo.queryString)) {
-			queryString.append(" group by ");
-			queryString.append(groupQueryInfo.queryString);
-			args.addAll(groupQueryInfo.args);
+		{
+			QueryInfo rightJoinQueryInfo = toRightJoinQueryInfo();
+			if (!Lang.isEmpty(rightJoinQueryInfo.queryString)) {
+				queryString.append(" right join ");
+				queryString.append(rightJoinQueryInfo.queryString);
+				args.addAll(rightJoinQueryInfo.args);
+			}
 		}
-		QueryInfo havingQueryInfo = toHavingQueryInfo();
-		if (!Lang.isEmpty(havingQueryInfo.queryString)) {
-			queryString.append(" having ");
-			queryString.append(havingQueryInfo.queryString);
-			args.addAll(havingQueryInfo.args);
+		{
+			QueryInfo whereQueryInfo = toWhereQueryInfo();
+			if (!Lang.isEmpty(whereQueryInfo.queryString)) {
+				queryString.append(" where ");
+				queryString.append(whereQueryInfo.queryString);
+				args.addAll(whereQueryInfo.args);
+			}
 		}
-		QueryInfo queryInfo = new QueryInfo();
-		queryInfo.queryString = queryString.toString();
-		queryInfo.args = Collections.unmodifiableList(args);
-		return queryInfo;
-	}
-
-	/**
-	 * @return
-	 */
-	private QueryInfo toHavingQueryInfo() {
-		List<Object> args = new ArrayList<Object>();
-		StringBuilder queryString = new StringBuilder();
-		QueryInfo queryInfo = new QueryInfo();
-		queryInfo.queryString = queryString.toString();
-		queryInfo.args = Collections.unmodifiableList(args);
-		return queryInfo;
-	}
-
-	private QueryInfo toGroupQueryInfo() {
-		List<Object> args = new ArrayList<Object>();
-		StringBuilder queryString = new StringBuilder();
-		QueryInfo queryInfo = new QueryInfo();
-		queryInfo.queryString = queryString.toString();
-		queryInfo.args = Collections.unmodifiableList(args);
-		return queryInfo;
-	}
-
-	private QueryInfo toSelectQueryInfo() {
-		List<Object> args = new ArrayList<Object>();
-		StringBuilder queryString = new StringBuilder();
-		QueryInfo queryInfo = new QueryInfo();
-		queryInfo.queryString = queryString.toString();
-		queryInfo.args = Collections.unmodifiableList(args);
-		return queryInfo;
-	}
-
-	private QueryInfo toFromQueryInfo() {
-		List<Object> args = new ArrayList<Object>();
-		StringBuilder queryString = new StringBuilder();
-		QueryInfo queryInfo = new QueryInfo();
-		queryInfo.queryString = queryString.toString();
-		queryInfo.args = Collections.unmodifiableList(args);
-		return queryInfo;
-	}
-
-	@SuppressWarnings("unchecked")
-	private QueryInfo toWhereQueryInfo() {
-		List<Object> args = new ArrayList<Object>();
-		StringBuilder queryString = new StringBuilder();
-		if (!whereQLMetas.isEmpty()) {
-			for (QLMeta qlMeta : whereQLMetas) {
-				switch (qlMeta.type) {
-				case AND: {
-					if (qlMeta.ql != null) {
-						if (queryString.length() != 0) {
-							queryString.append(" and ");
-						}
-						writeQLMeta(args, queryString, qlMeta);
-					} else if (qlMeta.subQL != null) {
-						if (queryString.length() != 0) {
-							queryString.append(" and ( ");
-						}
-						QueryInfo queryInfo = qlMeta.subQL.toWhereQueryInfo();
-						queryString.append(queryInfo.queryString);
-						queryString.append(")");
-						args.addAll(queryInfo.args);
-					}
-					break;
-				}
-				case OR: {
-					if (qlMeta.ql != null) {
-						if (queryString.length() != 0) {
-							queryString.append(" or ");
-						}
-						writeQLMeta(args, queryString, qlMeta);
-					} else if (qlMeta.subQL != null) {
-						if (queryString.length() != 0) {
-							queryString.append(" or ( ");
-						}
-						QueryInfo queryInfo = qlMeta.subQL.toWhereQueryInfo();
-						queryString.append(queryInfo.queryString);
-						queryString.append(")");
-						args.addAll(queryInfo.args);
-					}
-					break;
-				}
-				}
+		{
+			QueryInfo orderQueryInfo = toOrderQueryInfo();
+			if (!Lang.isEmpty(orderQueryInfo.queryString)) {
+				queryString.append(" order by ");
+				queryString.append(orderQueryInfo.queryString);
+				args.addAll(orderQueryInfo.args);
+			}
+		}
+		{
+			QueryInfo groupQueryInfo = toGroupQueryInfo();
+			if (!Lang.isEmpty(groupQueryInfo.queryString)) {
+				queryString.append(" group by ");
+				queryString.append(groupQueryInfo.queryString);
+				args.addAll(groupQueryInfo.args);
+			}
+		}
+		{
+			QueryInfo havingQueryInfo = toHavingQueryInfo();
+			if (!Lang.isEmpty(havingQueryInfo.queryString)) {
+				queryString.append(" having ");
+				queryString.append(havingQueryInfo.queryString);
+				args.addAll(havingQueryInfo.args);
 			}
 		}
 		QueryInfo queryInfo = new QueryInfo();
@@ -480,10 +649,205 @@ public class QL {
 		args.addAll(newArgs);
 	}
 
+	private QueryInfo toSelectQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		if (!selectQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : selectQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
+		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	private QueryInfo toFromQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		if (!fromQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : fromQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
+		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	private QueryInfo toJoinQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		if (!joinQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : joinQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
+		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	private QueryInfo toLeftJoinQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		if (!leftJoinQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : leftJoinQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
+		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	private QueryInfo toRightJoinQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		if (!rightJoinQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : rightJoinQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
+		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	private QueryInfo toWhereQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		if (!whereQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : whereQLMetas) {
+				switch (qlMeta.logicType) {
+				case AND: {
+					if (qlMeta.ql != null) {
+						if (queryString.length() != 0) {
+							queryString.append(" and ");
+						}
+						writeQLMeta(args, queryString, qlMeta);
+					} else if (qlMeta.subQL != null) {
+						if (queryString.length() != 0) {
+							queryString.append(" and ( ");
+						}
+						QueryInfo queryInfo = qlMeta.subQL.toWhereQueryInfo();
+						queryString.append(queryInfo.queryString);
+						queryString.append(")");
+						args.addAll(queryInfo.args);
+					}
+					break;
+				}
+				case OR: {
+					if (qlMeta.ql != null) {
+						if (queryString.length() != 0) {
+							queryString.append(" or ");
+						}
+						writeQLMeta(args, queryString, qlMeta);
+					} else if (qlMeta.subQL != null) {
+						if (queryString.length() != 0) {
+							queryString.append(" or ( ");
+						}
+						QueryInfo queryInfo = qlMeta.subQL.toWhereQueryInfo();
+						queryString.append(queryInfo.queryString);
+						queryString.append(")");
+						args.addAll(queryInfo.args);
+					}
+					break;
+				}
+				}
+			}
+		}
+		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
 	private QueryInfo toOrderQueryInfo() {
 		List<Object> args = new ArrayList<Object>();
 		StringBuilder queryString = new StringBuilder();
+		if (!orderQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : orderQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
 		QueryInfo queryInfo = new QueryInfo();
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	private QueryInfo toGroupQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		QueryInfo queryInfo = new QueryInfo();
+		if (!groupQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : groupQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
+		queryInfo.queryString = queryString.toString();
+		queryInfo.args = Collections.unmodifiableList(args);
+		return queryInfo;
+	}
+
+	/**
+	 * @return
+	 */
+	private QueryInfo toHavingQueryInfo() {
+		List<Object> args = new ArrayList<Object>();
+		StringBuilder queryString = new StringBuilder();
+		QueryInfo queryInfo = new QueryInfo();
+		if (!havingQLMetas.isEmpty()) {
+			for (QLMeta qlMeta : havingQLMetas) {
+				if (qlMeta.ql != null) {
+					if (queryString.length() != 0) {
+						queryString.append(",");
+					}
+					writeQLMeta(args, queryString, qlMeta);
+				}
+			}
+		}
 		queryInfo.queryString = queryString.toString();
 		queryInfo.args = Collections.unmodifiableList(args);
 		return queryInfo;
