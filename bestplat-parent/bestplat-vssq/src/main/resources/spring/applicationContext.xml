@@ -79,9 +79,10 @@
 	<import resource="components/applicationContext-shiro.xml" />
 
 	<!-- 数据源相关 -->
-	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
         <property name="statementExecutableSqlLogEnable" value="true" />
   	</bean>
+  	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter"></bean>
 
 	<!-- production环境 -->
 	<beans profile="production">
@@ -100,6 +101,7 @@
 			<property name="proxyFilters">
 		        <list>
 		            <ref bean="log-filter"/>
+		            <ref bean="stat-filter"/>
 		        </list>
 		    </property>
 		</bean>
@@ -124,6 +126,7 @@
 			<property name="proxyFilters">
 		        <list>
 		            <ref bean="log-filter"/>
+		            <ref bean="stat-filter"/>
 		        </list>
 		    </property>
 		</bean>
@@ -148,6 +151,7 @@
 			<property name="proxyFilters">
 		        <list>
 		            <ref bean="log-filter"/>
+		            <ref bean="stat-filter"/>
 		        </list>
 		    </property>
 		</bean>
@@ -175,6 +179,7 @@
 			<property name="proxyFilters">
 		        <list>
 		            <ref bean="log-filter"/>
+		            <ref bean="stat-filter"/>
 		        </list>
 		    </property>
 		</bean>
