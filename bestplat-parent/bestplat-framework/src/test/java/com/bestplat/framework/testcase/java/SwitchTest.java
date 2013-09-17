@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class SwitchTest {
 	@Test
-	public void switchString() {
+	public void test() {
 		String key = "2";
 		switch (key) {
 		case "1":
